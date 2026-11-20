@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIME ULTRA CONTROL CENTER - VIP DASHBOARD</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Orbitron & Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: radial-gradient(circle at 10% 10%, #0d0f17 0%, #07080b 60%, #030406 100%);
+      color: #f1f5f9;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .font-orbitron { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    
+    /* Luxury Obsidian Glassmorphism */
+    .cyber-card {
+      background: linear-gradient(135deg, rgba(16, 20, 30, 0.75) 0%, rgba(9, 12, 19, 0.92) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.45), transparent);
+    }
+    .cyber-card:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 16px 45px -5px rgba(99, 102, 241, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    /* Luxury Action Button Effects */
+    .btn-action-glow {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-action-glow:hover {
+      transform: translateY(-1.5px) scale(1.02);
+    }
+    .btn-action-glow:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Glow utilities */
+    .glow-cyan-btn, .glow-luxury-btn {
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
+      transition: all 0.25s ease;
+    }
+    .glow-cyan-btn:hover, .glow-luxury-btn:hover {
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.65);
+      transform: translateY(-1.5px);
+    }
+
+    .nav-btn-active {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.16) 0%, rgba(139, 92, 246, 0.04) 100%);
+      border-left: 3px solid #8b5cf6;
+      color: #c4b5fd;
+      box-shadow: inset 4px 0 12px -2px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Table Row Transition */
+    .table-cyber-row {
+      transition: all 0.18s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .table-cyber-row:hover {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(30, 41, 59, 0.35) 50%, rgba(139, 92, 246, 0.04) 100%);
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #07080b; }
+    ::-webkit-scrollbar-thumb { background: #1f2533; border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row bg-[#07090e] text-slate-200">
+
+  <!-- Ambient Glow Effects -->
+  <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-violet-600/5 rounded-full blur-[140px] pointer-events-none"></div>
+  <div class="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-[160px] pointer-events-none"></div>
+
+  <!-- ========================================================================= -->
+  <!-- SIDEBAR NAVIGATION -->
+  <!-- ========================================================================= -->
+  <aside class="w-full md:w-64 bg-[#0a0d14]/95 border-b md:border-b-0 md:border-r border-slate-800/80 flex flex-col justify-between z-30 shrink-0">
+    
+    <div>
+      <!-- Brand Logo / Header -->
+      <div class="p-5 border-b border-slate-800/80 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-600 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-[0_0_20px_rgba(139,92,246,0.35)]">
+            U
+          </div>
+          <div>
+            <h1 class="font-extrabold text-sm tracking-tight text-white flex items-center gap-1.5">
+              <span>PRIME ULTRA</span>
+            </h1>
+            <p class="text-[10px] text-slate-400 font-mono tracking-wider uppercase">VIP Command Nexus</p>
+          </div>
+        </div>
+        <span id="sidebar-role-badge" class="text-[9px] font-bold px-2 py-0.5 rounded font-mono border">
+          OWNER
+        </span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-3 space-y-1 text-xs font-medium">
+        
+        <button onclick="switchTab('overview')" id="tab-btn-overview" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all nav-btn-active">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>Dashboard Overview</span>
+        </button>
+
+        <button onclick="switchTab('create-key')" id="tab-btn-create-key" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Generate New Keys</span>
+        </button>
+
+        <button onclick="switchTab('manage-keys')" id="tab-btn-manage-keys" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+          <span>Manage All Keys</span>
+          <span id="sidebar-keys-count" class="ml-auto bg-slate-800 text-[10px] px-1.5 py-0.2 rounded font-mono text-violet-400">0</span>
+        </button>
+
+        <!-- Owner Only Section -->
+        <div id="sidebar-owner-section" class="pt-3 mt-3 border-t border-slate-800/60">
+          <div class="px-3 pb-1 text-[10px] uppercase tracking-wider text-slate-500 font-bold">Reseller Control</div>
+          
+          <button onclick="switchTab('add-reseller')" id="tab-btn-add-reseller" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            <span>Add Reseller</span>
+          </button>
+
+          <button onclick="switchTab('manage-resellers')" id="tab-btn-manage-resellers" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <span>Manage Resellers</span>
+          </button>
+
+          <div class="px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider text-slate-500 font-bold">System</div>
+          <button onclick="switchTab('server-settings')" id="tab-btn-server-settings" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-violet-400 hover:bg-slate-900/60 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Server &amp; App Config</span>
+          </button>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- User / Session Footer -->
+    <div class="p-4 border-t border-slate-800/80 bg-gradient-to-b from-slate-950/40 to-slate-950/80">
+      <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700/60 shadow-inner mb-3">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+          <div class="w-8 h-8 rounded-lg bg-violet-950/60/80 border border-violet-500/40 flex items-center justify-center text-xs shadow-[0_0_10px_rgba(139,92,246,0.2)] shrink-0">
+            <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <div class="truncate">
+            <p id="footer-user-role" class="text-xs font-bold text-slate-100 font-orbitron truncate">Owner Master</p>
+            <p id="footer-user-key" class="text-[10px] text-violet-400 font-mono truncate tracking-wider">Active Session</p>
+          </div>
+        </div>
+      </div>
+      <button onclick="handleLogout()" class="btn-action-glow w-full py-2.5 bg-gradient-to-r from-red-950/60 to-rose-950/60 hover:from-red-900/90 hover:to-rose-900/90 text-red-300 hover:text-white text-xs font-mono font-bold rounded-xl border border-red-500/30 hover:border-red-500/60 transition-all flex items-center justify-center gap-2 shadow-sm">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        <span>Logout Session</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN WORKSPACE -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+    <!-- Top Action Bar -->
+    <header class="h-16 border-b border-slate-800/80 px-6 flex items-center justify-between bg-[#0a0d14]/60 backdrop-blur-md sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <h2 id="page-title" class="font-orbitron font-bold text-base sm:text-lg text-slate-100">
+          Dashboard Overview
+        </h2>
+        <span id="role-pill" class="text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+          LIVE
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="refreshData()" class="px-3 py-1.5 text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-violet-500/40 text-violet-400 rounded-lg transition-all flex items-center gap-1.5 font-mono">
+          <svg id="refresh-spinner" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Sync Database</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- LUXURY HERO STATUS STRIP -->
+    <!-- ========================================================================= -->
+    <div class="px-4 sm:px-8 pt-6">
+      <div class="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-slate-900/90 via-[#0d1017]/95 to-slate-900/90 p-5 sm:p-7 shadow-[0_15px_40px_rgba(0,0,0,0.65)]">
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-violet-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+              <span class="text-[10px] font-mono font-bold tracking-widest uppercase text-violet-300 bg-violet-950/70 px-2.5 py-0.5 rounded-full border border-violet-500/30">VIP ULTRA CLUSTER • GATEWAY ONLINE</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2.5">
+              <span>PRIME ULTRA</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-white/10 text-slate-300 border border-white/10">v2.0 MASTER</span>
+            </h1>
+            <p class="text-xs text-slate-400 font-mono tracking-wide mt-1">Autonomous License Engine • Realtime HWID Integrity • Edge Cloud Defense</p>
+          </div>
+
+          <div class="flex items-center gap-2.5 shrink-0">
+            <div class="px-4 py-2 rounded-xl bg-black/40 border border-white/10 flex items-center gap-3 font-mono text-xs">
+              <span class="text-slate-400">STATUS:</span>
+              <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SECURE
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Workspace Views -->
+    <div class="p-4 sm:p-8 space-y-6">
+
+      <!-- =================================================================== -->
+      <!-- VIEW 1: OVERVIEW -->
+      <!-- =================================================================== -->
+      <section id="view-overview" class="space-y-6">
+        
+        <!-- Quick Stats Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="cyber-card p-5 rounded-2xl">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider">Total Active Keys</span>
+              <span class="text-violet-400 text-lg"><svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg></span>
+            </div>
+            <p id="stat-total-keys" class="font-orbitron text-2xl sm:text-3xl font-black text-violet-400">0</p>
+            <p class="text-[11px] text-slate-500 mt-1 font-mono">Active Client Licenses</p>
+          </div>
+
+          <div class="cyber-card p-5 rounded-2xl">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider">Total Connected Devices</span>
+              <span class="text-purple-400 text-lg"><svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></span>
+            </div>
+            <p id="stat-bound-devices" class="font-orbitron text-2xl sm:text-3xl font-black text-purple-400">0</p>
+            <p class="text-[11px] text-slate-500 mt-1 font-mono">Live Devices Online</p>
+          </div>
+
+          <div class="cyber-card p-5 rounded-2xl">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider">Registered Resellers</span>
+              <span class="text-yellow-400 text-lg"><svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
+            </div>
+            <p id="stat-total-resellers" class="font-orbitron text-2xl sm:text-3xl font-black text-yellow-400">0</p>
+            <p class="text-[11px] text-slate-500 mt-1 font-mono">Authorized Key Distributors</p>
+          </div>
+
+          <div class="cyber-card p-5 rounded-2xl">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider">Cloudflare Gateway</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+            </div>
+            <p class="font-orbitron text-xl sm:text-2xl font-black text-emerald-400 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ONLINE
+            </p>
+            <p class="text-[11px] text-slate-500 mt-1 font-mono truncate" id="stat-worker-domain">jaat-ultra.workers.dev</p>
+          </div>
+        </div>
+
+        <!-- Quick Jump Panels -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="cyber-card p-6 rounded-2xl">
+            <h3 class="font-orbitron font-bold text-sm text-violet-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Quick Key Generator</span>
+            </h3>
+            <p class="text-xs text-slate-400 mb-4">Quickly generate 1 random key with predefined durations.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <button onclick="quickGenerate('2 Hours')" class="btn-action-glow py-3 px-2 bg-gradient-to-br from-slate-900 to-slate-950 hover:from-indigo-950/80 hover:to-violet-950/80 text-slate-200 hover:text-violet-300 border border-slate-800 hover:border-violet-500/50 rounded-xl text-xs font-mono font-bold transition-all flex flex-col items-center justify-center gap-1 shadow-md hover:shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+                <span class="text-violet-400 font-orbitron text-sm tracking-wide">+2H</span>
+                <span class="text-[10px] text-slate-400 font-sans">Trial Pass</span>
+              </button>
+              <button onclick="quickGenerate('1 Day')" class="btn-action-glow py-3 px-2 bg-gradient-to-br from-slate-900 to-slate-950 hover:from-indigo-950/80 hover:to-violet-950/80 text-slate-200 hover:text-violet-300 border border-slate-800 hover:border-violet-500/50 rounded-xl text-xs font-mono font-bold transition-all flex flex-col items-center justify-center gap-1 shadow-md hover:shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+                <span class="text-violet-400 font-orbitron text-sm tracking-wide">+1D</span>
+                <span class="text-[10px] text-slate-400 font-sans">24h Timer</span>
+              </button>
+              <button onclick="quickGenerate('7 Days')" class="btn-action-glow py-3 px-2 bg-gradient-to-br from-slate-900 to-slate-950 hover:from-indigo-950/80 hover:to-violet-950/80 text-slate-200 hover:text-violet-300 border border-slate-800 hover:border-violet-500/50 rounded-xl text-xs font-mono font-bold transition-all flex flex-col items-center justify-center gap-1 shadow-md hover:shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+                <span class="text-violet-400 font-orbitron text-sm tracking-wide">+7D</span>
+                <span class="text-[10px] text-slate-400 font-sans">1 Week</span>
+              </button>
+              <button onclick="quickGenerate('30 Days')" class="btn-action-glow py-3 px-2 bg-gradient-to-br from-slate-900 to-slate-950 hover:from-indigo-950/80 hover:to-violet-950/80 text-slate-200 hover:text-violet-300 border border-slate-800 hover:border-violet-500/50 rounded-xl text-xs font-mono font-bold transition-all flex flex-col items-center justify-center gap-1 shadow-md hover:shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+                <span class="text-violet-400 font-orbitron text-sm tracking-wide">+30D</span>
+                <span class="text-[10px] text-slate-400 font-sans">1 Month</span>
+              </button>
+              <button id="quick-btn-lifetime" onclick="quickGenerate('Lifetime')" class="btn-action-glow py-3 px-2 bg-gradient-to-br from-slate-900 to-slate-950 hover:from-yellow-950 hover:to-amber-950 text-slate-200 hover:text-yellow-300 border border-slate-800 hover:border-yellow-500/50 rounded-xl text-xs font-mono font-bold transition-all flex flex-col items-center justify-center gap-1 shadow-md hover:shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+                <span class="text-yellow-400 font-orbitron text-sm tracking-wide">♾️ LIFE</span>
+                <span class="text-[10px] text-slate-400 font-sans">Permanent</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="cyber-card p-6 rounded-2xl">
+            <h3 class="font-orbitron font-bold text-sm text-purple-400 uppercase tracking-wider mb-2">
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg> Server Announcement (MOTD)</span>
+            </h3>
+            <p id="motd-preview" class="text-xs text-slate-300 font-mono bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+              Loading current server message...
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 2: CREATE KEYS -->
+      <!-- =================================================================== -->
+      <section id="view-create-key" class="hidden space-y-6">
+        <div class="cyber-card p-6 sm:p-8 rounded-2xl max-w-3xl">
+          <div class="border-b border-slate-800 pb-4 mb-6">
+            <h3 class="font-orbitron text-lg font-bold text-violet-400">GENERATE ACCESS KEYS</h3>
+            <p class="text-xs text-slate-400 mt-1">Create single or bulk keys with strict hardware lock and expiry timers.</p>
+          </div>
+
+          <form id="form-create-key" onsubmit="handleCreateKey(event)" class="space-y-5">
+            
+            <!-- Key Name / Random -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">License Key String</label>
+              <div class="flex gap-2">
+                <input type="text" id="gen-key-input" placeholder="Enter license key string or click Randomize..." class="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+                <button type="button" onclick="fillRandomKey()" class="btn-action-glow px-5 py-3 bg-gradient-to-r from-cyan-950 to-blue-950 hover:from-cyan-900 hover:to-blue-900 text-violet-300 text-xs font-mono font-bold rounded-xl border border-violet-500/40 shadow-[0_0_12px_rgba(6,182,212,0.2)] transition-all flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                  <span>Randomize</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Duration Selection -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Plan Duration (Countdown Timer)</label>
+                <select id="gen-duration-select" onchange="updateDurationPreview()" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+                  <option value="2h">2 Hours Pass (Trial Key)</option>
+                  <option value="6h">6 Hours Pass</option>
+                  <option value="12h">12 Hours Pass</option>
+                  <option value="1d" selected>1 Day Pass (Exact 24 Hours Countdown)</option>
+                  <option value="2d">2 Days Pass (48 Hours)</option>
+                  <option value="3d">3 Days Pass (72 Hours)</option>
+                  <option value="7d">7 Days Pass (168 Hours)</option>
+                  <option value="15d">15 Days Pass</option>
+                  <option value="30d">30 Days Pass</option>
+                  <option value="60d">60 Days Pass</option>
+                  <option id="opt-duration-lifetime" value="Lifetime">Unlimited Lifetime Access</option>
+                </select>
+              </div>
+
+              <!-- Hardware Device Lock Limit -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Device Lock (HWID)</label>
+                <select id="gen-device-limit" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+                  <option value="1">1 Device (Locked to First Login HWID)</option>
+                  <option value="2">2 Devices Maximum</option>
+                  <option value="unlimited">Unlimited Devices (No HWID Lock)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Customer Tag / Notes -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Buyer Notes / Customer Tag (Optional)</label>
+              <input type="text" id="gen-notes-input" placeholder="Enter custom note here (e.g. Buyer Name / Note)..." class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+            </div>
+
+            <!-- Sold By / Distributor Tag (Anti-Leak Watermark) -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Sold By / Distributor Name (Anti-Leak Watermark)</label>
+              <input type="text" id="gen-seller-input" placeholder="Enter seller / brand name here..." class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+              <p class="text-[10px] text-slate-400 font-mono mt-1.5 flex items-center gap-1">
+                <span class="text-violet-400">ℹ️</span> This distributor name will be permanently displayed inside the user's mobile app login to prevent key leaking.
+              </p>
+            </div>
+
+            <!-- Expiry Preview Box -->
+            <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-700/80 flex items-center justify-between text-xs font-mono shadow-inner">
+              <span class="text-slate-400">Calculated Expiration:</span>
+              <span id="preview-calculated-expiry" class="text-emerald-400 font-semibold">Calculating...</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="btn-submit-key" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-violet-500 text-slate-950 font-orbitron font-extrabold text-xs tracking-wider rounded-xl glow-cyan-btn transition-all shadow-[0_0_25px_rgba(139,92,246,0.35)]">
+              COMMIT &amp; GENERATE KEY
+            </button>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 3: MANAGE KEYS -->
+      <!-- =================================================================== -->
+      <section id="view-manage-keys" class="hidden space-y-4">
+        
+        <!-- Search & Filter Bar -->
+        <div class="cyber-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 border border-slate-800">
+          <div class="relative w-full sm:w-80">
+            <input type="text" id="search-key-input" oninput="filterKeysTable()" placeholder="Search key name, seller or notes..." class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-10 pr-3 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-cyan-400 font-mono transition-all">
+            <svg class="w-4 h-4 text-violet-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+          <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end flex-wrap">
+            <select id="filter-tier-select" onchange="filterKeysTable()" class="bg-slate-950/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-violet-500 font-mono">
+              <option value="all">All Plans</option>
+              <option value="Lifetime">Lifetime</option>
+              <option value="30">30 Days</option>
+              <option value="15">15 Days</option>
+              <option value="7">7 Days</option>
+              <option value="3">3 Days</option>
+              <option value="1">1 Day</option>
+            </select>
+
+            <!-- OWNER ONLY: Bulk Delete Keys Buttons -->
+            <div id="owner-keys-bulk-actions" class="items-center gap-2 hidden">
+              <button onclick="actionDeleteExpiredKeys()" class="btn-action-glow px-3 py-2 bg-gradient-to-r from-amber-950/80 to-red-950/80 hover:from-amber-700 hover:to-red-700 text-amber-200 hover:text-white border border-amber-500/40 text-xs font-mono font-bold rounded-xl shadow-[0_0_10px_rgba(245,158,11,0.2)] transition-all flex items-center gap-1.5" title="Delete all expired keys at once">
+                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>Delete Expired Keys</span>
+              </button>
+              <button onclick="actionDeleteAllKeys()" class="btn-action-glow px-3 py-2 bg-gradient-to-r from-red-950 to-rose-950 hover:from-red-600 hover:to-rose-600 text-red-200 hover:text-white border border-red-500/40 text-xs font-mono font-bold rounded-xl shadow-[0_0_12px_rgba(239,68,68,0.25)] transition-all flex items-center gap-1.5" title="Permanently delete all keys from registry">
+                <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                <span>Delete All Keys</span>
+              </button>
+            </div>
+
+            <button onclick="refreshData()" class="btn-action-glow p-2.5 bg-slate-900 border border-slate-700 hover:border-violet-400 rounded-xl text-violet-400 text-xs transition-all hover:bg-violet-950/60/40 shadow-sm" title="Refresh Table">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Keys Table Container -->
+        <div class="cyber-card rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-slate-950/90 text-slate-400 border-b border-slate-800 uppercase text-[11px] tracking-wider font-semibold">
+                <tr>
+                  <th class="py-4 px-5">🔑 License Key &amp; Info</th>
+                  <th class="py-4 px-4">💎 Plan / Tier</th>
+                  <th class="py-4 px-4">⏳ Time Remaining</th>
+                  <th class="py-4 px-4">📱 Connected Devices</th>
+                  <th class="py-4 px-4">⚡ Status</th>
+                  <th class="py-4 px-5 text-right">⚙️ Actions</th>
+                </tr>
+              </thead>
+              <tbody id="keys-table-rows" class="divide-y divide-slate-800/50">
+                <tr>
+                  <td colspan="6" class="p-8 text-center text-slate-500">
+                    <div class="flex items-center justify-center gap-3">
+                      <svg class="w-5 h-5 text-violet-400 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m0 14v1m8-8h-1M5 12H4m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path></svg>
+                      <span>Synchronizing license registry...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 4: ADD RESELLER (OWNER ONLY) -->
+      <!-- =================================================================== -->
+      <section id="view-add-reseller" class="hidden space-y-6">
+        <div class="cyber-card p-6 sm:p-8 rounded-2xl max-w-2xl">
+          <div class="border-b border-slate-800 pb-4 mb-6">
+            <h3 class="font-orbitron text-lg font-bold text-yellow-400">ADD AUTHORIZED RESELLER</h3>
+            <p class="text-xs text-slate-400 mt-1">Authorize a new reseller key and assign key generation credits.</p>
+          </div>
+
+          <form id="form-add-reseller" onsubmit="handleAddReseller(event)" class="space-y-5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Reseller Access Key / Login ID</label>
+              <div class="flex gap-2">
+                <input type="text" id="reseller-key-input" placeholder="Enter reseller account key..." class="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 font-mono transition-all">
+                <button type="button" onclick="fillRandomResellerKey()" class="btn-action-glow px-5 py-3 bg-gradient-to-r from-yellow-950 to-amber-950 hover:from-yellow-900 hover:to-amber-900 text-yellow-300 text-xs font-mono font-bold rounded-xl border border-yellow-500/40 shadow-[0_0_12px_rgba(234,179,8,0.2)] transition-all flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                  <span>Auto Key</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Assigned Key Credits</label>
+                <input type="number" id="reseller-credits-input" value="50" min="1" max="9999" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-100 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 font-mono transition-all">
+                <p class="text-[10px] text-slate-400 font-mono mt-1.5">Kitni keys ye reseller generate kar sakega.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Reseller Validity</label>
+                <select id="reseller-validity-select" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 font-mono transition-all">
+                  <option value="30">30 Days</option>
+                  <option value="60">60 Days</option>
+                  <option value="90">90 Days</option>
+                  <option value="Lifetime" selected>Permanent / Lifetime</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-submit-reseller" class="w-full py-3.5 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-600 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-orbitron font-extrabold text-xs tracking-wider rounded-xl transition-all shadow-[0_0_25px_rgba(234,179,8,0.4)]">
+              REGISTER RESELLER
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 5: MANAGE RESELLERS (OWNER ONLY) -->
+      <!-- =================================================================== -->
+      <section id="view-manage-resellers" class="hidden space-y-4">
+        <div class="cyber-card rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl">
+          <div class="p-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/60">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse"></span>
+              <h3 class="font-orbitron text-sm font-bold text-yellow-400 tracking-wider">ACTIVE RESELLERS REGISTRY</h3>
+              <span id="reseller-count-pill" class="ml-2 text-xs bg-yellow-950/80 border border-yellow-500/40 text-yellow-300 font-mono px-3 py-1 rounded-full font-bold shadow-[0_0_10px_rgba(234,179,8,0.2)]">0 Resellers</span>
+            </div>
+
+            <!-- OWNER ONLY: Bulk Delete Resellers Buttons -->
+            <div id="owner-resellers-bulk-actions" class="items-center gap-2 hidden">
+              <button onclick="actionDeleteExpiredResellers()" class="btn-action-glow px-3 py-2 bg-gradient-to-r from-amber-950/80 to-red-950/80 hover:from-amber-700 hover:to-red-700 text-amber-200 hover:text-white border border-amber-500/40 text-xs font-mono font-bold rounded-xl shadow-[0_0_10px_rgba(245,158,11,0.2)] transition-all flex items-center gap-1.5" title="Delete expired resellers">
+                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>Delete Expired Resellers</span>
+              </button>
+              <button onclick="actionDeleteAllResellers()" class="btn-action-glow px-3 py-2 bg-gradient-to-r from-red-950 to-rose-950 hover:from-red-600 hover:to-rose-600 text-red-200 hover:text-white border border-red-500/40 text-xs font-mono font-bold rounded-xl shadow-[0_0_12px_rgba(239,68,68,0.25)] transition-all flex items-center gap-1.5" title="Delete all resellers">
+                <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                <span>Delete All Resellers</span>
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-slate-950/90 text-slate-400 border-b border-slate-800 uppercase text-[11px] tracking-wider font-semibold">
+                <tr>
+                  <th class="py-4 px-5">👑 Reseller Key</th>
+                  <th class="py-4 px-4">💳 Remaining Credits</th>
+                  <th class="py-4 px-4">⏳ Validity</th>
+                  <th class="py-4 px-4">⚡ Status</th>
+                  <th class="py-4 px-5 text-right">⚙️ Actions</th>
+                </tr>
+              </thead>
+              <tbody id="resellers-table-rows" class="divide-y divide-slate-800/50">
+                <tr>
+                  <td colspan="5" class="p-8 text-center text-slate-500">
+                    No resellers registered yet. Click "Add Reseller" to create one.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 6: SERVER & APP CONFIG (OWNER ONLY) -->
+      <!-- =================================================================== -->
+<!-- =================================================================== -->
+      <!-- VIEW: SERVER & MOBILE APP CONFIG (OWNER ONLY) -->
+      <!-- =================================================================== -->
+      <section id="view-server-settings" class="hidden space-y-6">
+        <div class="cyber-card p-6 sm:p-8 rounded-2xl max-w-3xl space-y-6">
+          <div class="border-b border-slate-800 pb-4">
+            <h3 class="font-orbitron text-lg font-bold text-violet-400">SERVER &amp; MOBILE CHEAT ENGINE CONTROL</h3>
+            <p class="text-xs text-slate-400 mt-1">Real-time Cloudflare master switches: control app maintenance, version enforcement, and individual cheat modules.</p>
+          </div>
+
+          <form id="form-server-settings" onsubmit="handleSaveSettings(event)" class="space-y-5">
+            
+            <!-- Global Server Status -->
+            <div class="flex items-center justify-between p-4 bg-slate-950 rounded-xl border border-slate-800">
+              <div>
+                <p class="text-xs font-bold text-slate-200">Cheat Server Status</p>
+                <p class="text-[11px] text-slate-500">Toggle whether application allows VIP logins or is under maintenance.</p>
+              </div>
+              <select id="setting-server-status" class="bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-slate-200 font-mono focus:border-violet-500">
+                <option value="online">ONLINE (Normal Operation)</option>
+                <option value="maintenance">MAINTENANCE (Block Login &amp; Floating)</option>
+              </select>
+            </div>
+
+            <!-- Maintenance Alert Message -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Maintenance Message (Shown when server is under maintenance)</label>
+              <textarea id="setting-maint-msg" rows="2" placeholder="Enter maintenance message (e.g. Panel under maintenance! Join Telegram for updates)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500 font-mono"></textarea>
+            </div>
+
+            <!-- Cheat Feature Switches Grid -->
+            <div>
+              <label class="block text-xs font-semibold text-violet-400 uppercase tracking-wider mb-3">Remote Cheat Modules Control (Instant Kill-Switches)</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                
+                <!-- Floating Mod Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">Floating Menu Mod</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Master floating overlay</p>
+                  </div>
+                  <select id="setting-enable-floating" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- Aim Drag Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">Aim Drag</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Button 1 Switch</p>
+                  </div>
+                  <select id="setting-enable-neck" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- Aimbot Hips Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">Aimbot Hips</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Button 2 Switch</p>
+                  </div>
+                  <select id="setting-enable-body" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- Chams Master Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">Chams Master Switch</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Enable/Disable both Chams</p>
+                  </div>
+                  <select id="setting-enable-chams" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- Color Chams Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">Color Chams</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Location 1 Switch</p>
+                  </div>
+                  <select id="setting-enable-chams-pink" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-pink-400">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- 3D Chams Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-slate-200">3D Chams</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Location 2 Switch</p>
+                  </div>
+                  <select id="setting-enable-chams-3d" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-indigo-400">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- In-App Announcement (MOTD) -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">In-App Global Announcement (Broadcast)</label>
+              <textarea id="setting-motd-input" rows="2" placeholder="Enter message to broadcast inside user APK..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500 font-mono"></textarea>
+            </div>
+
+            <!-- App Version & Update Alert -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Required App Version</label>
+                <input type="text" id="setting-version-input" value="1.0" placeholder="e.g. 6.0" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Download / Update Link</label>
+                <input type="text" id="setting-update-url" placeholder="Enter update download link (https://telegram.dog/...)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 font-mono">
+              </div>
+            </div>
+
+            <!-- Outdated Version Alert Message -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Update Required Message (Shown if user has older version)</label>
+              <input type="text" id="setting-outdated-msg" placeholder="App version outdated! Please update to PRIME ULTRA to continue." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 font-mono">
+            </div>
+
+
+
+            <!-- DYNAMIC ONLINE CODE MANAGER -->
+            <div class="p-4 bg-slate-950/90 rounded-2xl border border-violet-500/30 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="text-xs font-bold text-violet-400 uppercase tracking-widest font-orbitron">● Dynamic Online Code Manager</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-violet-950/60 text-violet-300 border border-violet-500/40">v1.0 LIVE</span>
+              </div>
+
+              <!-- Aim Drag Offsets JSON -->
+              <div class="bg-slate-950/70 p-4 rounded-xl border border-amber-500/30">
+                <div class="flex items-center justify-between mb-2">
+                  <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    AIM DRAG OFFSETS
+                  </label>
+                  <div>
+                    <button type="button" onclick="formatNeckOffsetsJson()" class="btn-action-glow px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-violet-300 font-mono text-xs border border-slate-700 transition-all shadow-sm">
+                      Format JSON
+                    </button>
+                  </div>
+                </div>
+                <textarea id="setting-neck-offsets" rows="4" placeholder="Enter Aim Drag Offsets Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-amber-200 placeholder-slate-600 focus:outline-none focus:border-amber-500 font-mono"></textarea>
+              </div>
+
+              <!-- Color Chams Rules -->
+              <div>
+                <label class="block text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">
+                  COLOR CHAMS RULES
+                </label>
+                <textarea id="setting-chams-pink-rules" rows="3" placeholder="Enter Color Chams Rules Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-pink-200 placeholder-slate-600 focus:outline-none focus:border-pink-500 font-mono"></textarea>
+              </div>
+
+              <!-- 3D Chams Rules -->
+              <div>
+                <label class="block text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">
+                  3D CHAMS RULES
+                </label>
+                <textarea id="setting-chams-3d-rules" rows="3" placeholder="Enter 3D Chams Rules Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-indigo-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 font-mono"></textarea>
+              </div>
+
+              <!-- Aimbot Hips Offsets JSON -->
+              <div>
+                <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">
+                  AIMBOT HIPS OFFSETS
+                </label>
+                <textarea id="setting-body-offsets" rows="3" placeholder="Enter Aimbot Hips Offsets Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-emerald-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-mono"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-save-settings" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:to-violet-500 text-slate-950 font-orbitron font-extrabold text-xs tracking-wider rounded-xl glow-cyan-btn transition-all shadow-[0_0_25px_rgba(139,92,246,0.35)]">
+              SAVE SERVER &amp; CHEAT CONFIGURATION
+            </button>
+
+          </form>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- KEY CREATED POPUP MODAL (TELEGRAM COPY READY) -->
+  <!-- ========================================================================= -->
+  <div id="modal-key-success" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-all duration-300">
+    <div class="relative w-full max-w-md bg-slate-900 border border-violet-500/40 rounded-2xl p-6 shadow-[0_0_50px_rgba(139,92,246,0.25)] cyber-card">
+      
+      <!-- Top Glowing Line -->
+      <div class="absolute -top-[1px] left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-violet-950/60 border border-violet-500/40 flex items-center justify-center text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 id="modal-key-title" class="text-xs font-bold font-orbitron text-violet-400 tracking-wider">KEY CREATED SUCCESSFULLY</h3>
+            <p class="text-[10px] text-slate-400 font-mono">Ready to share &amp; copy for Telegram</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeKeyModal()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 flex items-center justify-center transition-all text-xs font-mono">✕</button>
+      </div>
+
+      <!-- Formatted Card Preview (Telegram Style) -->
+      <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs space-y-3 relative select-text">
+        <div class="text-[12px] font-bold text-violet-400 tracking-wider flex items-center justify-between" id="preview-header-title">
+          <span>PRIME ULTRA VIP KEY</span>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-violet-950/60 text-violet-300 border border-violet-500/40 font-mono">TG FORMAT</span>
+        </div>
+        
+        <!-- Key Monospace Box with Quick Copy -->
+        <div class="p-3 rounded-xl bg-slate-900 border border-violet-500/30 flex items-center justify-between gap-2">
+          <div class="overflow-hidden">
+            <span class="text-slate-400 text-[10px] block mb-0.5 font-sans uppercase font-semibold">LICENSE KEY -</span>
+            <code id="preview-key" class="text-violet-300 font-bold tracking-widest font-mono text-xs select-all">PRIME-XXXX-XXXX</code>
+          </div>
+          <button type="button" id="btn-copy-raw-key" onclick="copyRawKeyOnly()" class="px-3 py-1.5 text-[10px] rounded-lg bg-violet-950/60 hover:bg-cyan-900 text-violet-300 border border-violet-500/40 font-mono font-bold transition-all shadow-[0_0_10px_rgba(139,92,246,0.2)]">
+            Copy Key
+          </button>
+        </div>
+
+        <div class="space-y-2 text-[11px] pt-1">
+          <div class="text-slate-300 flex items-center justify-between">
+            <span class="text-slate-400">VALIDITY -</span>
+            <span id="preview-validity" class="text-emerald-400 font-semibold font-mono">10 Nov 2026, 01:15 PM (1 Day)</span>
+          </div>
+
+          <div id="preview-credits-row" class="text-slate-300 flex items-center justify-between hidden">
+            <span class="text-slate-400">CREDITS -</span>
+            <span id="preview-credits" class="text-yellow-400 font-semibold font-mono">50 Keys</span>
+          </div>
+
+          <div class="text-slate-300 flex items-center justify-between">
+            <span class="text-slate-400">SELLER NAME -</span>
+            <span id="preview-seller" class="text-yellow-300 font-semibold font-mono">JAAT OP OFFICIAL</span>
+          </div>
+
+          <div class="text-slate-300 flex items-center justify-between">
+            <span class="text-slate-400">OFFICIAL TG -</span>
+            <span id="preview-tg" class="text-violet-400 font-semibold font-mono">@PRIME_MODSX</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[10px] text-slate-500 font-mono mt-2.5">
+        ℹ️ Telegram me key monospace (<code>`KEY`</code>) block me jayegi, jisse buyer ek tap me key copy kar sakega.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="mt-5 flex items-center gap-2.5">
+        <button type="button" id="btn-copy-details" onclick="copyFullKeyDetails()" class="flex-1 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-slate-950 font-orbitron font-bold text-xs rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+          <span id="btn-copy-details-text">COPY KEY DETAILS</span>
+        </button>
+
+        <button type="button" onclick="closeKeyModal()" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-orbitron font-bold text-xs rounded-xl border border-slate-700 transition-all">
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- DASHBOARD ENGINE (JAVASCRIPT) -->
+  <!-- ========================================================================= -->
+  <script>
+    const CONFIG = {
+      workerUrl: "https://jaat-ultra.hrrusher808.workers.dev",
+      storageKey: "JAAT_OP_KEY_SESSION"
+    };
+
+    let session = null;
+    let cachedData = { keys: {}, resellers: {}, settings: {} };
+
+    // =========================================================================
+    // INITIALIZATION & AUTHENTICATION GUARD
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem(CONFIG.storageKey);
+      if (!stored) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        session = JSON.parse(stored);
+        if (!session || (!session.isOwner && !session.isReseller)) {
+          localStorage.removeItem(CONFIG.storageKey);
+          window.location.href = "index.html";
+          return;
+        }
+      } catch (e) {
+        localStorage.removeItem(CONFIG.storageKey);
+        window.location.href = "index.html";
+        return;
+      }
+
+      applyRoleUI();
+      updateDurationPreview();
+      refreshData();
+
+      // Active Security Guard: Immediately logout if key is deleted from database
+      window.addEventListener('focus', () => {
+        if (session && session.key) refreshData();
+      });
+      setInterval(() => {
+        if (session && session.key) refreshData();
+      }, 30000);
+    });
+
+    function applyRoleUI() {
+      const isOwner = session.isOwner;
+      const roleText = isOwner ? "Owner Master" : "Authorized Reseller";
+      const roleBadgeClass = isOwner ? "bg-yellow-950/60 text-yellow-400 border-yellow-500/30" : "bg-purple-950/60 text-purple-400 border-purple-500/30";
+
+      document.getElementById('sidebar-role-badge').innerText = isOwner ? "OWNER" : "RESELLER";
+      document.getElementById('sidebar-role-badge').className = `text-[9px] font-bold px-2 py-0.5 rounded font-mono border ${roleBadgeClass}`;
+
+      document.getElementById('footer-user-role').innerText = roleText;
+      document.getElementById('footer-user-key').innerText = session.key;
+
+      document.getElementById('role-pill').innerText = isOwner ? "OWNER CONSOLE" : "RESELLER CONSOLE";
+      document.getElementById('role-pill').className = `text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase tracking-wider ${roleBadgeClass}`;
+
+      // Hide Owner-only tabs & bulk action controls from Reseller
+      const ownerSection = document.getElementById('sidebar-owner-section');
+      const ownerKeysBulk = document.getElementById('owner-keys-bulk-actions');
+      const ownerResellersBulk = document.getElementById('owner-resellers-bulk-actions');
+
+      if (!isOwner) {
+        if (ownerSection) ownerSection.style.display = 'none';
+        if (ownerKeysBulk) ownerKeysBulk.classList.add('hidden'), ownerKeysBulk.classList.remove('flex');
+        if (ownerResellersBulk) ownerResellersBulk.classList.add('hidden'), ownerResellersBulk.classList.remove('flex');
+
+        // Resellers cannot create Lifetime keys
+        const quickLifeBtn = document.getElementById('quick-btn-lifetime');
+        if (quickLifeBtn) quickLifeBtn.style.display = 'none';
+        const optLife = document.getElementById('opt-duration-lifetime');
+        if (optLife) optLife.style.display = 'none';
+      } else {
+        if (ownerSection) ownerSection.style.display = 'block';
+        if (ownerKeysBulk) ownerKeysBulk.classList.remove('hidden'), ownerKeysBulk.classList.add('flex');
+        if (ownerResellersBulk) ownerResellersBulk.classList.remove('hidden'), ownerResellersBulk.classList.add('flex');
+
+        const quickLifeBtn = document.getElementById('quick-btn-lifetime');
+        if (quickLifeBtn) quickLifeBtn.style.display = 'flex';
+        const optLife = document.getElementById('opt-duration-lifetime');
+        if (optLife) optLife.style.display = 'block';
+      }
+    }
+
+    function formatNeckOffsetsJson() {
+      const elem = document.getElementById('setting-neck-offsets');
+      if (!elem || !elem.value.trim()) return;
+      try {
+        const parsed = JSON.parse(elem.value.trim());
+        elem.value = JSON.stringify(parsed, null, 2);
+        alert("JSON syntax verified & formatted successfully!");
+      } catch (e) {
+        alert("Invalid JSON format! Please check syntax: " + e.message);
+      }
+    }
+
+    // =========================================================================
+    // TAB SWITCHER
+    // =========================================================================
+    function switchTab(tabId) {
+      const views = ['overview', 'create-key', 'manage-keys', 'add-reseller', 'manage-resellers', 'server-settings'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        const btn = document.getElementById(`tab-btn-${v}`);
+        if (el) el.classList.add('hidden');
+        if (btn) btn.classList.remove('nav-btn-active');
+      });
+
+      const activeView = document.getElementById(`view-${tabId}`);
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeView) activeView.classList.remove('hidden');
+      if (activeBtn) activeBtn.classList.add('nav-btn-active');
+
+      const titles = {
+        'overview': 'Dashboard Overview',
+        'create-key': 'Generate New Access Keys',
+        'manage-keys': 'Manage All License Keys',
+        'add-reseller': 'Register New Reseller',
+        'manage-resellers': 'Manage Reseller Network',
+        'server-settings': 'Server & Application Settings'
+      };
+      document.getElementById('page-title').innerText = titles[tabId] || 'Dashboard';
+
+      if (tabId === 'server-settings' && cachedData.settings) {
+        const s = cachedData.settings;
+        if (document.getElementById('setting-server-status') && s.serverStatus) document.getElementById('setting-server-status').value = s.serverStatus;
+        if (document.getElementById('setting-maint-msg') && s.maintenanceMsg) document.getElementById('setting-maint-msg').value = s.maintenanceMsg;
+        if (document.getElementById('setting-motd-input') && s.announcement !== undefined) document.getElementById('setting-motd-input').value = s.announcement;
+        if (document.getElementById('setting-version-input') && s.appVersion) document.getElementById('setting-version-input').value = s.appVersion;
+        if (document.getElementById('setting-update-url') && s.updateUrl) document.getElementById('setting-update-url').value = s.updateUrl;
+        if (document.getElementById('setting-outdated-msg') && s.outdatedMsg) document.getElementById('setting-outdated-msg').value = s.outdatedMsg;
+        if (document.getElementById('setting-get-key-url') && s.getKeyUrl !== undefined) document.getElementById('setting-get-key-url').value = s.getKeyUrl;
+        if (document.getElementById('setting-free-key-secret') && s.freeKeySecret) {
+          document.getElementById('setting-free-key-secret').value = s.freeKeySecret;
+          updateEarnlinksPreview();
+        }
+        if (document.getElementById('setting-free-key-cooldown') && s.freeKeyCooldownHours !== undefined) document.getElementById('setting-free-key-cooldown').value = s.freeKeyCooldownHours;
+
+        if (document.getElementById('setting-enable-floating') && s.enableFloating !== undefined) document.getElementById('setting-enable-floating').value = s.enableFloating ? 'true' : 'false';
+        if (document.getElementById('setting-enable-neck') && s.enableNeck !== undefined) document.getElementById('setting-enable-neck').value = s.enableNeck ? 'true' : 'false';
+        if (document.getElementById('setting-enable-body') && s.enableBody !== undefined) document.getElementById('setting-enable-body').value = s.enableBody ? 'true' : 'false';
+        if (document.getElementById('setting-enable-chams') && s.enableChams !== undefined) document.getElementById('setting-enable-chams').value = s.enableChams ? 'true' : 'false';
+        if (document.getElementById('setting-enable-chams-pink') && s.enableChamsPink !== undefined) document.getElementById('setting-enable-chams-pink').value = s.enableChamsPink ? 'true' : 'false';
+        if (document.getElementById('setting-enable-chams-3d') && s.enableChams3d !== undefined) document.getElementById('setting-enable-chams-3d').value = s.enableChams3d ? 'true' : 'false';
+
+        if (document.getElementById('setting-neck-offsets')) {
+          let val = s.neckOffsets || '';
+          if (val) {
+            try {
+              const parsed = typeof val === 'string' ? JSON.parse(val) : val;
+              val = JSON.stringify(parsed, null, 2);
+            } catch(e) {}
+          }
+          document.getElementById('setting-neck-offsets').value = val;
+        }
+        if (document.getElementById('setting-chams-pink-rules')) {
+          let val = s.chamsPinkRules || '';
+          if (!val && s.chamsPinkSearch && s.chamsPinkReplace) {
+            try {
+              val = JSON.stringify([{"search": s.chamsPinkSearch, "replace": s.chamsPinkReplace}], null, 2);
+            } catch(e) {}
+          }
+          document.getElementById('setting-chams-pink-rules').value = val;
+        }
+        if (document.getElementById('setting-chams-3d-rules')) {
+          document.getElementById('setting-chams-3d-rules').value = s.chams3dRules || '';
+        }
+        if (document.getElementById('setting-body-offsets')) {
+          document.getElementById('setting-body-offsets').value = s.bodyOffsets || '';
+        }
+      }
+    }
+
+    // =========================================================================
+    // CLOUDFLARE WORKER & GITHUB SYNC
+    // =========================================================================
+    async function refreshData() {
+      const spinner = document.getElementById('refresh-spinner');
+      if (spinner) spinner.classList.add('animate-spin');
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/list`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key })
+        });
+
+        // AUTO-LOGOUT: If key is deleted, expired, or invalid -> Terminate session immediately!
+        if (res.status === 401 || res.status === 403 || !res.ok) {
+          alert("⚠️ SESSION TERMINATED!\n\nYour Admin / Reseller Key has been deleted or revoked from the database. Logging out immediately.");
+          sessionStorage.clear();
+          localStorage.removeItem(CONFIG.storageKey);
+          localStorage.removeItem("jaat_admin_session");
+          window.location.href = "index.html?terminated=1";
+          return;
+        }
+
+        const data = await res.json();
+        if (data.success === false) {
+          alert("⚠️ ACCESS REVOKED!\n\n" + (data.message || "Your access has been revoked."));
+          sessionStorage.clear();
+          localStorage.removeItem(CONFIG.storageKey);
+          localStorage.removeItem("jaat_admin_session");
+          window.location.href = "index.html?terminated=1";
+          return;
+        }
+
+        if (data.keys) {
+          cachedData.keys = data.keys;
+        }
+        if (data.resellers) {
+          cachedData.resellers = data.resellers;
+        }
+        if (data.settings) {
+          cachedData.settings = data.settings;
+        }
+      } catch (err) {
+        console.warn("Could not sync with worker, checking local cache.", err);
+      } finally {
+        if (spinner) spinner.classList.remove('animate-spin');
+        renderDashboard();
+      }
+    }
+
+    // Render all elements with current database state
+    function renderDashboard() {
+      const keysList = Object.entries(cachedData.keys || {});
+      const resellersList = Object.entries(cachedData.resellers || {});
+
+      // Stats
+      document.getElementById('stat-total-keys').innerText = keysList.length;
+      document.getElementById('sidebar-keys-count').innerText = keysList.length;
+      document.getElementById('stat-total-resellers').innerText = resellersList.length;
+
+      let totalConnectedDevices = 0;
+      keysList.forEach(([k, v]) => {
+        const devices = Array.isArray(v.activeDevices) 
+          ? v.activeDevices 
+          : (v.hwid ? v.hwid.split(',').map(s => s.trim()).filter(Boolean) : []);
+        totalConnectedDevices += devices.length;
+      });
+      document.getElementById('stat-bound-devices').innerText = totalConnectedDevices;
+
+      // MOTD Preview
+      const motd = (cachedData.settings && cachedData.settings.announcement) || "System active. All protection modules online.";
+      document.getElementById('motd-preview').innerText = motd;
+
+      // Render Tables
+      renderKeysTable(keysList);
+      renderResellersTable(resellersList);
+    }
+
+    let currentKeysCache = null;
+
+    function formatShortDate(d) {
+      if (!d || isNaN(d.getTime())) return "Unknown";
+      const istDate = new Date(d.getTime() + (5.5 * 3600 * 1000));
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let hr = istDate.getUTCHours();
+      const ampm = hr >= 12 ? "PM" : "AM";
+      hr = hr % 12;
+      if (hr === 0) hr = 12;
+      const mn = istDate.getUTCMinutes().toString().padStart(2, '0');
+      return `${istDate.getUTCDate()} ${months[istDate.getUTCMonth()]}, ${hr}:${mn} ${ampm}`;
+    }
+
+    // Render Keys Table
+    function renderKeysTable(keysList) {
+      currentKeysCache = keysList;
+      const tbody = document.getElementById('keys-table-rows');
+      tbody.innerHTML = '';
+
+      if (!keysList || keysList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-500 font-mono text-xs">No keys found in database. Click "Generate New Keys" to create one.</td></tr>';
+        return;
+      }
+
+      keysList.forEach(([keyName, keyData]) => {
+        if (keyName === 'free_claims' || keyName === 'free_sessions' || keyName === 'settings' || keyName === 'resellers') return;
+        const tr = document.createElement('tr');
+        tr.className = "table-cyber-row";
+
+        // Pure Device Counting (No HWID displayed)
+        const devicesList = Array.isArray(keyData.activeDevices) 
+          ? keyData.activeDevices 
+          : (keyData.hwid ? keyData.hwid.split(',').map(s => s.trim()).filter(Boolean) : []);
+        const count = devicesList.length;
+        const isUnlimited = keyData.deviceLimit === "unlimited";
+        const limitDisplay = isUnlimited ? "Unlimited" : (keyData.deviceLimit || "1");
+
+        let deviceBadge = '';
+        if (count === 0) {
+          deviceBadge = `<span class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700/70 text-slate-400 font-bold text-xs inline-flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+            0 / ${limitDisplay} Connected
+          </span>`;
+        } else if (isUnlimited) {
+          deviceBadge = `<span class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-950/90 to-fuchsia-950/90 border border-purple-500/50 text-purple-300 font-extrabold text-xs inline-flex items-center gap-2 shadow-[0_0_18px_rgba(168,85,247,0.35)]">
+            <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+            ${count} Connected (Unlimited)
+          </span>`;
+        } else {
+          deviceBadge = `<span class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-950/90 to-blue-950/90 border border-violet-500/50 text-violet-300 font-extrabold text-xs inline-flex items-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            ${count} / ${limitDisplay} Connected
+          </span>`;
+        }
+
+        // Timer & Activation state determination
+        const isLifetime = (keyData.durationHours === null && (!keyData.expires || keyData.expires === "Never" || keyData.tier?.includes("Lifetime")));
+        const isActivated = Boolean(keyData.isActivated || keyData.activatedAt || (keyData.expires && !keyData.expires.includes("Not Activated") && !keyData.expires.includes("Unused") && keyData.expires !== "Never" && count > 0));
+
+        let statusBadge = '';
+        let expiryDisplay = '';
+
+        if (isLifetime) {
+          statusBadge = `<span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-yellow-950/90 text-yellow-300 border border-yellow-500/60 inline-flex items-center gap-1.5 shadow-[0_0_15px_rgba(234,179,8,0.3)]"><span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>LIFETIME</span>`;
+          expiryDisplay = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-yellow-950/80 border border-yellow-500/40 text-yellow-300 font-bold text-xs shadow-[0_0_12px_rgba(234,179,8,0.2)]">♾️ Never (Lifetime)</span>`;
+        } else if (!isActivated) {
+          const hours = keyData.durationHours || 24;
+          const durStr = hours >= 24 ? `${Math.round(hours / 24)} Day(s) (${hours}h)` : `${hours} Hours`;
+          statusBadge = `<span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-amber-950/90 text-amber-300 border border-amber-500/60 inline-flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            READY / UNUSED
+          </span>`;
+          expiryDisplay = `
+            <div class="space-y-0.5">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-500/40 text-amber-300 font-bold text-xs shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                ${durStr} Timer
+              </div>
+              <p class="text-[10px] text-slate-400 font-mono flex items-center gap-1 mt-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                Starts on first login
+              </p>
+            </div>
+          `;
+        } else {
+          // Key is activated: calculate countdown from expires timestamp
+          const expDate = new Date(keyData.expires);
+          const msLeft = expDate.getTime() - Date.now();
+          const isExpired = (!isNaN(expDate.getTime()) && msLeft <= 0) || keyData.status === "expired";
+
+          if (isExpired) {
+            statusBadge = `<span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-red-950/90 text-red-400 border border-red-500/50 inline-flex items-center gap-1.5 shadow-[0_0_10px_rgba(239,68,68,0.25)]"><span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>EXPIRED</span>`;
+            expiryDisplay = `
+              <div class="space-y-0.5">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-950/80 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_10px_rgba(239,68,68,0.25)]">
+                  Expired
+                </div>
+                <p class="text-[10px] text-red-400/80 font-mono mt-1">Expired: ${formatShortDate(expDate)}</p>
+              </div>
+            `;
+          } else {
+            const totalSecs = Math.floor(msLeft / 1000);
+            const h = Math.floor(totalSecs / 3600);
+            const m = Math.floor((totalSecs % 3600) / 60);
+            const s = totalSecs % 60;
+            let timeStr = "";
+            if (h >= 24) {
+              const d = Math.floor(h / 24);
+              timeStr = `${d}d ${h % 24}h ${m}m`;
+            } else if (h > 0) {
+              timeStr = `${h}h ${m}m ${s}s`;
+            } else {
+              timeStr = `${m}m ${s}s`;
+            }
+
+            statusBadge = `<span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-emerald-950/90 text-emerald-300 border border-emerald-500/60 inline-flex items-center gap-1.5 shadow-[0_0_15px_rgba(160,255,200,0.3)]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ACTIVE
+            </span>`;
+            expiryDisplay = `
+              <div class="space-y-0.5">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-extrabold text-xs shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                  <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0 animate-spin" style="animation-duration: 4s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  ${timeStr} left
+                </div>
+                <p class="text-[10px] text-slate-400 font-mono mt-1">Exp: ${formatShortDate(expDate)}</p>
+              </div>
+            `;
+          }
+        }
+
+        tr.innerHTML = `
+          <td class="py-4 px-5">
+            <div class="flex items-center gap-2 mb-1">
+              <div class="px-3 py-1.5 rounded-xl bg-violet-950/60/70 border border-violet-500/40 text-violet-300 font-bold font-mono text-xs tracking-wider flex items-center gap-2 group cursor-pointer hover:border-violet-400 transition-all shadow-[0_0_12px_rgba(139,92,246,0.2)]" onclick="navigator.clipboard.writeText('${keyName}'); alert('Key copied to clipboard: ${keyName}');" title="Click to copy key">
+                <span>${keyName}</span>
+                <svg class="w-3.5 h-3.5 text-violet-400/70 group-hover:text-cyan-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+              </div>
+            </div>
+            ${keyData.seller ? `
+              <div class="flex items-center gap-1.5 mt-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 text-[10px] font-mono">
+                  <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                  ${keyData.seller}
+                </span>
+              </div>
+            ` : ''}
+            ${keyData.notes ? `<p class="text-[10px] text-slate-400 font-mono mt-1 italic pl-0.5">${keyData.notes}</p>` : ''}
+          </td>
+          <td class="py-4 px-4 text-slate-300">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-950/90 to-indigo-950/90 border border-blue-500/40 text-blue-300 font-bold text-[11px] shadow-[0_0_10px_rgba(59,130,246,0.15)] font-mono">
+              <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+              ${keyData.tier || 'VIP'}
+            </span>
+          </td>
+          <td class="py-4 px-4">
+            ${expiryDisplay}
+          </td>
+          <td class="py-4 px-4">
+            ${deviceBadge}
+          </td>
+          <td class="py-4 px-4">
+            ${statusBadge}
+          </td>
+          <td class="py-4 px-5 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-2">
+              <button onclick="actionResetHWID('${keyName}')" class="btn-action-glow inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-900/80 to-indigo-900/80 hover:from-purple-600 hover:to-indigo-600 text-purple-200 hover:text-white border border-purple-500/40 text-xs font-bold font-mono shadow-[0_0_10px_rgba(168,85,247,0.2)] hover:shadow-[0_0_18px_rgba(168,85,247,0.5)] transition-all" title="Reset HWID / Device Lock">
+                <svg class="w-3.5 h-3.5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <span>Reset HWID</span>
+              </button>
+              <button onclick="actionAddDays('${keyName}')" class="btn-action-glow inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-900/80 to-violet-900/80 hover:from-indigo-600 hover:to-violet-600 text-indigo-200 hover:text-white border border-violet-500/40 text-xs font-bold font-mono shadow-[0_0_10px_rgba(139,92,246,0.2)] hover:shadow-[0_0_18px_rgba(139,92,246,0.4)] transition-all" title="Add Days / Extend Expiry">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <span>+Days</span>
+              </button>
+              <button onclick="actionDeleteKey('${keyName}')" class="btn-action-glow inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-950/80 to-rose-950/80 hover:from-red-600 hover:to-rose-600 text-red-300 hover:text-white border border-red-500/40 text-xs font-bold font-mono shadow-[0_0_8px_rgba(239,68,68,0.2)] hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] transition-all" title="Delete Key">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                <span>Delete</span>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Resellers Table
+    function renderResellersTable(resellersList) {
+      const tbody = document.getElementById('resellers-table-rows');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (!resellersList || resellersList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-500 font-mono text-xs">No resellers registered yet.</td></tr>';
+        return;
+      }
+
+      document.getElementById('reseller-count-pill').innerText = `${resellersList.length} Resellers`;
+
+      resellersList.forEach(([rKey, rData]) => {
+        const tr = document.createElement('tr');
+        tr.className = "table-cyber-row";
+
+        tr.innerHTML = `
+          <td class="py-4 px-5">
+            <span class="px-3 py-1.5 rounded-xl bg-yellow-950/70 border border-yellow-500/40 text-yellow-300 font-bold font-mono text-xs tracking-wider inline-block shadow-[0_0_10px_rgba(234,179,8,0.15)]">${rKey}</span>
+          </td>
+          <td class="py-4 px-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-950/60/80 border border-violet-500/40 text-violet-300 font-bold font-mono text-xs shadow-[0_0_10px_rgba(139,92,246,0.2)]">
+              ${rData.credits ?? 'Unlimited'} Credits
+            </span>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">${rData.expires || 'Lifetime'}</td>
+          <td class="py-4 px-4">
+            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-emerald-950/90 text-emerald-300 border border-emerald-500/50 inline-flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ${rData.status || 'ACTIVE'}
+            </span>
+          </td>
+          <td class="py-4 px-5 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-2">
+              <button onclick="actionAddCredits('${rKey}')" class="btn-action-glow inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-yellow-900/80 to-amber-900/80 hover:from-yellow-500 hover:to-amber-500 text-yellow-200 hover:text-slate-950 border border-yellow-500/40 text-xs font-bold font-mono shadow-[0_0_10px_rgba(234,179,8,0.2)] hover:shadow-[0_0_18px_rgba(234,179,8,0.5)] transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <span>Add Credits</span>
+              </button>
+              <button onclick="actionDeleteReseller('${rKey}')" class="btn-action-glow inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-red-950/80 to-rose-950/80 hover:from-red-600 hover:to-rose-600 text-red-300 hover:text-white border border-red-500/40 text-xs font-bold font-mono shadow-[0_0_8px_rgba(239,68,68,0.2)] hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                <span>Delete</span>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // =========================================================================
+    // KEY GENERATION & ACTIONS
+    // =========================================================================
+    function fillRandomKey() {
+      const part1 = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const part2 = Math.random().toString(36).substring(2, 6).toUpperCase();
+      document.getElementById('gen-key-input').value = `JAAT-${part1}-${part2}`;
+    }
+
+    function fillRandomResellerKey() {
+      const part = Math.random().toString(36).substring(2, 7).toUpperCase();
+      document.getElementById('reseller-key-input').value = `RESELLER-${part}`;
+    }
+
+    function parseDurationHours(val) {
+      if (!val || val === "Lifetime") return null;
+      if (typeof val === "string" && val.endsWith("h")) return parseFloat(val);
+      if (typeof val === "string" && val.endsWith("d")) return parseFloat(val) * 24;
+      const num = parseFloat(val);
+      if (!isNaN(num)) return num * 24;
+      return 24;
+    }
+
+    function updateDurationPreview() {
+      const sel = document.getElementById('gen-duration-select').value;
+      const preview = document.getElementById('preview-calculated-expiry');
+      if (sel === "Lifetime") {
+        preview.innerText = "Never (Permanent Access)";
+        preview.className = "text-yellow-400 font-bold";
+      } else {
+        const hours = parseDurationHours(sel);
+        const text = hours >= 24 ? `${Math.round(hours / 24)} Day(s) (${hours}h)` : `${hours} Hours`;
+        preview.innerHTML = `<span class="text-amber-400 font-bold">Unused (Exact ${text} Countdown)</span> &bull; <span class="text-slate-400 text-[11px]">Timer starts on first device login</span>`;
+        preview.className = "text-emerald-400 font-mono";
+      }
+    }
+
+    // =========================================================================
+    // KEY CREATED POPUP & TELEGRAM CLIPBOARD GENERATOR
+    // =========================================================================
+    let currentModalData = null;
+
+    function formatExpiryDateDetailed(d) {
+      if (!d || isNaN(d.getTime())) return "Unknown";
+      const istDate = new Date(d.getTime() + (5.5 * 3600 * 1000));
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let hr = istDate.getUTCHours();
+      const ampm = hr >= 12 ? "PM" : "AM";
+      hr = hr % 12;
+      if (hr === 0) hr = 12;
+      const mn = istDate.getUTCMinutes().toString().padStart(2, '0');
+      const day = istDate.getUTCDate().toString().padStart(2, '0');
+      const yr = istDate.getUTCFullYear();
+      return `${day} ${months[istDate.getUTCMonth()]} ${yr}, ${hr}:${mn} ${ampm}`;
+    }
+
+    function calculateExpiryTargetDate(durationVal) {
+      if (!durationVal || durationVal === "Lifetime") return "Permanent / Lifetime";
+      const hours = parseDurationHours(durationVal);
+      if (!hours) return "Permanent / Lifetime";
+      const targetDate = new Date(Date.now() + (hours * 3600 * 1000));
+      const shortDate = formatExpiryDateDetailed(targetDate);
+      if (hours >= 24) {
+        const days = Math.round(hours / 24);
+        return `${shortDate} (${days} ${days === 1 ? 'Day' : 'Days'})`;
+      } else {
+        return `${shortDate} (${hours} Hours)`;
+      }
+    }
+
+    function showKeyCreatedModal(data) {
+      currentModalData = data;
+      const modalTitleElem = document.getElementById('modal-key-title');
+      const headerTitleElem = document.getElementById('preview-header-title');
+      const keyElem = document.getElementById('preview-key');
+      const validityElem = document.getElementById('preview-validity');
+      const sellerElem = document.getElementById('preview-seller');
+      const tgElem = document.getElementById('preview-tg');
+      const creditsRow = document.getElementById('preview-credits-row');
+      const creditsElem = document.getElementById('preview-credits');
+
+      if (modalTitleElem) modalTitleElem.innerText = data.modalTitle || "KEY CREATED SUCCESSFULLY";
+      if (headerTitleElem && headerTitleElem.firstElementChild) {
+        headerTitleElem.firstElementChild.innerText = data.headerTitle || "PRIME ULTRA VIP KEY";
+      }
+      if (keyElem) keyElem.innerText = data.key || "";
+      if (validityElem) validityElem.innerText = data.validity || "Permanent / Lifetime";
+      if (sellerElem) sellerElem.innerText = data.seller || "JAAT OP OFFICIAL";
+      if (tgElem) tgElem.innerText = data.officialTg || "@PRIME_MODSX";
+
+      if (creditsRow && creditsElem) {
+        if (data.credits) {
+          creditsRow.classList.remove('hidden');
+          creditsElem.innerText = data.credits;
+        } else {
+          creditsRow.classList.add('hidden');
+        }
+      }
+
+      const btnCopyText = document.getElementById('btn-copy-details-text');
+      if (btnCopyText) btnCopyText.innerText = "COPY KEY DETAILS";
+      const btnRaw = document.getElementById('btn-copy-raw-key');
+      if (btnRaw) btnRaw.innerText = "Copy Key";
+
+      const modal = document.getElementById('modal-key-success');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeKeyModal() {
+      const modal = document.getElementById('modal-key-success');
+      if (modal) modal.classList.add('hidden');
+      currentModalData = null;
+    }
+
+    async function copyFullKeyDetails() {
+      if (!currentModalData) return;
+      let text = `${currentModalData.headerTitle || "PRIME ULTRA VIP KEY"}\n`;
+      text += `LICENSE KEY - \`${currentModalData.key}\`\n`;
+      if (currentModalData.credits) {
+        text += `CREDITS - ${currentModalData.credits}\n`;
+      }
+      text += `VALIDITY - ${currentModalData.validity}\n`;
+      text += `SELLER NAME - ${currentModalData.seller}\n`;
+      text += `OFFICIAL TG - ${currentModalData.officialTg || "@PRIME_MODSX"}`;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const btnText = document.getElementById('btn-copy-details-text');
+        if (btnText) {
+          btnText.innerText = "COPIED DETAILS! ✓";
+          setTimeout(() => {
+            if (btnText) btnText.innerText = "COPY KEY DETAILS";
+          }, 2000);
+        }
+      } catch (err) {
+        prompt("Copy key details below (Ctrl+C):", text);
+      }
+    }
+
+    async function copyRawKeyOnly() {
+      if (!currentModalData) return;
+      try {
+        await navigator.clipboard.writeText(currentModalData.key);
+        const btn = document.getElementById('btn-copy-raw-key');
+        if (btn) {
+          btn.innerText = "Copied! ✓";
+          setTimeout(() => {
+            if (btn) btn.innerText = "Copy Key";
+          }, 2000);
+        }
+      } catch (err) {
+        prompt("Copy key below (Ctrl+C):", currentModalData.key);
+      }
+    }
+
+    // Quick Generate from Overview Tab
+    async function quickGenerate(durationStr) {
+      if (!session.isOwner && (durationStr === "Lifetime" || durationStr === "Permanent")) {
+        alert("⚠️ ACCESS RESTRICTED!\n\nResellers are not authorized to generate Lifetime keys. Only Master Owner can create Lifetime keys.");
+        return;
+      }
+      fillRandomKey();
+      const keyName = document.getElementById('gen-key-input').value;
+      let durationVal = durationStr;
+      let tier = `VIP ${durationStr}`;
+      if (durationStr === "2h" || durationStr === "2 Hours") {
+        durationVal = "2h";
+        tier = "2-Hour Trial";
+      } else if (durationStr === "1d" || durationStr === "1 Day") {
+        durationVal = "1d";
+        tier = "1-Day Pass (24h)";
+      } else if (durationStr === "7d" || durationStr === "7 Days") {
+        durationVal = "7d";
+        tier = "7-Day Pass";
+      } else if (durationStr === "30d" || durationStr === "30 Days") {
+        durationVal = "30d";
+        tier = "30-Day Pass";
+      } else if (durationStr === "Lifetime") {
+        durationVal = "Lifetime";
+        tier = "VIP Lifetime";
+      }
+
+      const success = await saveNewKey(keyName, tier, durationVal, "1", "Quick generated key", "");
+      if (success) {
+        const sellerName = session.role === 'owner' ? 'JAAT OP OFFICIAL' : session.key;
+        const validityStr = calculateExpiryTargetDate(durationVal);
+        showKeyCreatedModal({
+          modalTitle: "KEY CREATED SUCCESSFULLY",
+          headerTitle: "PRIME ULTRA VIP KEY",
+          key: keyName,
+          validity: validityStr,
+          seller: sellerName,
+          officialTg: "@PRIME_MODSX"
+        });
+        refreshData();
+        switchTab('manage-keys');
+      }
+    }
+
+    // Handle Create Key Form Submit
+    async function handleCreateKey(e) {
+      e.preventDefault();
+      const keyName = document.getElementById('gen-key-input').value.trim();
+      const durationVal = document.getElementById('gen-duration-select').value;
+      const deviceLimit = document.getElementById('gen-device-limit').value;
+      const notes = document.getElementById('gen-notes-input').value.trim();
+      const seller = document.getElementById('gen-seller-input') ? document.getElementById('gen-seller-input').value.trim() : '';
+      const submitBtn = document.getElementById('btn-submit-key');
+
+      if (!session.isOwner && durationVal === "Lifetime") {
+        alert("⚠️ ACCESS RESTRICTED!\n\nResellers are not authorized to generate Lifetime keys. Only Master Owner can create Lifetime keys.");
+        return;
+      }
+
+      if (!keyName) {
+        alert("Please enter a key or click 'Randomize'!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "COMMITTING TO DATABASE...";
+
+      let tier = "VIP Lifetime";
+      if (durationVal !== "Lifetime") {
+        const h = parseDurationHours(durationVal);
+        tier = h >= 24 ? `${Math.round(h / 24)}-Day Pass` : `${h}-Hour Pass`;
+      }
+
+      const success = await saveNewKey(keyName, tier, durationVal, deviceLimit, notes, seller);
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "COMMIT & GENERATE KEY";
+
+      if (success) {
+        const sellerName = seller || (session.role === 'owner' ? 'JAAT OP OFFICIAL' : session.key);
+        const validityStr = calculateExpiryTargetDate(durationVal);
+
+        showKeyCreatedModal({
+          modalTitle: "KEY CREATED SUCCESSFULLY",
+          headerTitle: "PRIME ULTRA VIP KEY",
+          key: keyName,
+          validity: validityStr,
+          seller: sellerName,
+          officialTg: "@PRIME_MODSX"
+        });
+
+        document.getElementById('gen-key-input').value = '';
+        document.getElementById('gen-notes-input').value = '';
+        if (document.getElementById('gen-seller-input')) document.getElementById('gen-seller-input').value = '';
+
+        refreshData();
+        switchTab('manage-keys');
+      }
+    }
+
+    // Direct API call to Cloudflare Worker to commit to GitHub
+    async function saveNewKey(keyName, tier, durationVal, deviceLimit, notes, seller = '') {
+      const durHours = parseDurationHours(durationVal);
+      const isLifetime = (durationVal === "Lifetime");
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/add`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            adminKey: session.key,
+            key: keyName,
+            tier: tier,
+            durationVal: durationVal,
+            durationHours: durHours,
+            expires: isLifetime ? "Never" : "Not Activated",
+            deviceLimit: deviceLimit,
+            notes: notes,
+            seller: seller || (session.role === 'owner' ? 'JAAT OP OFFICIAL' : session.key)
+          })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          alert("Error: " + (data.message || "Failed to commit"));
+          return false;
+        }
+        return true;
+      } catch (err) {
+        alert("Worker offline: " + err.message);
+        return false;
+      }
+    }
+
+    // =========================================================================
+    // ROW ACTIONS: RESET HWID, ADD DAYS, DELETE
+    // =========================================================================
+    async function actionResetHWID(keyName) {
+      if (!confirm(`Reset HWID Device Lock for key [${keyName}]?\nUser will be able to bind a new device on next login.`)) return;
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/reset_hwid`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, key: keyName })
+        });
+        const data = await res.json();
+        alert(data.message || "HWID Reset Successfully!");
+      } catch (e) {
+        alert("Error resetting HWID: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionAddDays(keyName) {
+      const days = prompt(`How many days to add to key [${keyName}]?`, "7");
+      if (!days || isNaN(days)) return;
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/add_days`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, key: keyName, days: parseInt(days) })
+        });
+        const data = await res.json();
+        alert(data.message || `Added ${days} days!`);
+      } catch (e) {
+        alert("Error adding days: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionDeleteKey(keyName) {
+      if (!confirm(`Are you sure you want to permanently delete license key [${keyName}]?`)) return;
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, key: keyName })
+        });
+        const data = await res.json();
+        if (!data.success) alert("Error: " + data.message);
+      } catch (e) {
+        alert("Worker offline: " + e.message);
+      }
+      refreshData();
+    }
+
+    // =========================================================================
+    // BULK ACTIONS (OWNER ONLY): DELETE EXPIRED & DELETE ALL
+    // =========================================================================
+    async function actionDeleteExpiredKeys() {
+      if (!session || !session.isOwner) {
+        alert("Permission denied. Owner privileges required.");
+        return;
+      }
+      if (!confirm("⚠️ Are you sure you want to delete ALL EXPIRED KEYS?\nAll keys whose validity or timer has finished will be removed permanently.")) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete_bulk_keys`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, mode: "expired" })
+        });
+        const data = await res.json();
+        alert(data.message || `Deleted ${data.count || 0} expired key(s).`);
+      } catch (e) {
+        alert("Worker offline or error: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionDeleteAllKeys() {
+      if (!session || !session.isOwner) {
+        alert("Permission denied. Owner privileges required.");
+        return;
+      }
+      const confirmation = prompt("🚨 HIGH-RISK MASTER OPERATION:\nYou are about to DELETE ALL KEYS from the database!\nType 'DELETE ALL' to confirm:");
+      if (confirmation !== "DELETE ALL") {
+        if (confirmation !== null) alert("Operation cancelled. Confirmation text did not match.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete_bulk_keys`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, mode: "all" })
+        });
+        const data = await res.json();
+        alert(data.message || "All keys have been permanently removed.");
+      } catch (e) {
+        alert("Worker offline or error: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionDeleteExpiredResellers() {
+      if (!session || !session.isOwner) {
+        alert("Permission denied. Owner privileges required.");
+        return;
+      }
+      if (!confirm("⚠️ Are you sure you want to delete ALL EXPIRED RESELLERS?\nAll distributor accounts past their validity date will be removed.")) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete_bulk_resellers`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, mode: "expired" })
+        });
+        const data = await res.json();
+        alert(data.message || `Deleted ${data.count || 0} expired reseller(s).`);
+      } catch (e) {
+        alert("Worker offline or error: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionDeleteAllResellers() {
+      if (!session || !session.isOwner) {
+        alert("Permission denied. Owner privileges required.");
+        return;
+      }
+      const confirmation = prompt("🚨 HIGH-RISK MASTER OPERATION:\nYou are about to DELETE ALL RESELLERS from the registry!\nType 'DELETE ALL' to confirm:");
+      if (confirmation !== "DELETE ALL") {
+        if (confirmation !== null) alert("Operation cancelled. Confirmation text did not match.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete_bulk_resellers`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, mode: "all" })
+        });
+        const data = await res.json();
+        alert(data.message || "All resellers have been removed.");
+      } catch (e) {
+        alert("Worker offline or error: " + e.message);
+      }
+      refreshData();
+    }
+
+    // =========================================================================
+    // RESELLER MANAGEMENT ACTIONS
+    // =========================================================================
+    async function handleAddReseller(e) {
+      e.preventDefault();
+      const rKey = document.getElementById('reseller-key-input').value.trim();
+      const credits = parseInt(document.getElementById('reseller-credits-input').value);
+      const validity = document.getElementById('reseller-validity-select').value;
+      const submitBtn = document.getElementById('btn-submit-reseller');
+
+      if (!rKey) {
+        alert("Please enter reseller key!");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "SAVING RESELLER...";
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/add_reseller`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            adminKey: session.key,
+            resellerKey: rKey,
+            credits: credits,
+            validity: validity
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          let validityStr = "Permanent / Lifetime";
+          if (validity !== "Lifetime") {
+            const days = parseInt(validity);
+            const targetDate = new Date(Date.now() + (days * 24 * 3600 * 1000));
+            validityStr = `${formatExpiryDateDetailed(targetDate)} (${days} Days)`;
+          }
+
+          showKeyCreatedModal({
+            modalTitle: "RESELLER REGISTERED SUCCESSFULLY",
+            headerTitle: "PRIME ULTRA VIP KEY",
+            key: rKey,
+            credits: `${credits} Keys`,
+            validity: validityStr,
+            seller: session.role === 'owner' ? 'JAAT OP OFFICIAL' : session.key,
+            officialTg: "@PRIME_MODSX"
+          });
+
+          document.getElementById('reseller-key-input').value = '';
+          refreshData();
+          switchTab('manage-resellers');
+        } else {
+          alert("Error: " + (data.message || "Failed to register reseller"));
+        }
+      } catch (err) {
+        alert("Worker error: " + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "REGISTER RESELLER";
+      }
+    }
+
+    async function actionAddCredits(rKey) {
+      const amount = prompt(`How many credits to add to reseller [${rKey}]?`, "20");
+      if (!amount || isNaN(amount)) return;
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/add_credits`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, resellerKey: rKey, amount: parseInt(amount) })
+        });
+        const data = await res.json();
+        alert(data.message || "Credits added!");
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+      refreshData();
+    }
+
+    async function actionDeleteReseller(rKey) {
+      if (!confirm(`Revoke and delete reseller [${rKey}]?`)) return;
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/delete_reseller`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminKey: session.key, resellerKey: rKey })
+        });
+        const data = await res.json();
+        alert(data.message || "Reseller deleted!");
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+      refreshData();
+    }
+
+    // =========================================================================
+    // SERVER SETTINGS SAVE
+    // =========================================================================
+    async function handleSaveSettings(e) {
+      e.preventDefault();
+      const status = document.getElementById('setting-server-status').value;
+      const maintMsg = document.getElementById('setting-maint-msg') ? document.getElementById('setting-maint-msg').value.trim() : '';
+      const motd = document.getElementById('setting-motd-input').value.trim();
+      const version = document.getElementById('setting-version-input').value.trim();
+      const updateUrl = document.getElementById('setting-update-url').value.trim();
+      const outdatedMsg = document.getElementById('setting-outdated-msg') ? document.getElementById('setting-outdated-msg').value.trim() : '';
+      const getKeyUrl = document.getElementById('setting-get-key-url') ? document.getElementById('setting-get-key-url').value.trim() : '';
+      const freeKeySecret = document.getElementById('setting-free-key-secret') ? document.getElementById('setting-free-key-secret').value.trim() : 'JAAT_FREE_PASS_2026';
+      const freeKeyCooldown = document.getElementById('setting-free-key-cooldown') ? parseInt(document.getElementById('setting-free-key-cooldown').value) || 24 : 24;
+
+      const enableFloating = document.getElementById('setting-enable-floating') ? document.getElementById('setting-enable-floating').value === 'true' : true;
+      const enableNeck = document.getElementById('setting-enable-neck') ? document.getElementById('setting-enable-neck').value === 'true' : true;
+      const enableBody = document.getElementById('setting-enable-body') ? document.getElementById('setting-enable-body').value === 'true' : true;
+      const enableChams = document.getElementById('setting-enable-chams') ? document.getElementById('setting-enable-chams').value === 'true' : true;
+      const enableChamsPink = document.getElementById('setting-enable-chams-pink') ? document.getElementById('setting-enable-chams-pink').value === 'true' : true;
+      const enableChams3d = document.getElementById('setting-enable-chams-3d') ? document.getElementById('setting-enable-chams-3d').value === 'true' : true;
+
+      const neckOffsets = document.getElementById('setting-neck-offsets') ? document.getElementById('setting-neck-offsets').value.trim() : '';
+      const chamsPinkRules = document.getElementById('setting-chams-pink-rules') ? document.getElementById('setting-chams-pink-rules').value.trim() : '';
+      const chams3dRules = document.getElementById('setting-chams-3d-rules') ? document.getElementById('setting-chams-3d-rules').value.trim() : '';
+      const bodyOffsets = document.getElementById('setting-body-offsets') ? document.getElementById('setting-body-offsets').value.trim() : '';
+
+      const btn = document.getElementById('btn-save-settings');
+
+      btn.disabled = true;
+      btn.innerText = "SAVING CONFIGURATION...";
+
+      try {
+        const res = await fetch(`${CONFIG.workerUrl}/admin/update_settings`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            adminKey: session.key,
+            settings: {
+              serverStatus: status,
+              maintenanceMsg: maintMsg,
+              announcement: motd,
+              appVersion: version,
+              updateUrl: updateUrl,
+              getKeyUrl: getKeyUrl,
+              freeKeySecret: freeKeySecret,
+              freeKeyCooldownHours: freeKeyCooldown,
+              outdatedMsg: outdatedMsg,
+              enableFloating: enableFloating,
+              enableNeck: enableNeck,
+              enableBody: enableBody,
+              enableChams: enableChams,
+              enableChamsPink: enableChamsPink,
+              enableChams3d: enableChams3d,
+              neckOffsets: neckOffsets,
+              chamsPinkRules: chamsPinkRules,
+              chams3dRules: chams3dRules,
+              bodyOffsets: bodyOffsets
+            }
+          })
+        });
+        const data = await res.json();
+        alert(data.message || "Settings saved successfully!");
+      } catch (err) {
+        alert("Error saving settings: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "SAVE SERVER CONFIGURATION";
+        refreshData();
+      }
+    }
+
+    // Dynamic Live Preview of Earnlinks Destination URL
+    function updateEarnlinksPreview() {
+      const secret = document.getElementById('setting-free-key-secret') ? document.getElementById('setting-free-key-secret').value.trim() : 'JAAT_FREE_PASS_2026';
+      const el = document.getElementById('preview-earnlinks-dest');
+      if (el) {
+        el.innerText = `${CONFIG.workerUrl}/get_free_key?pass=${encodeURIComponent(secret)}`;
+      }
+    }
+
+    // Filter Keys table live
+    function filterKeysTable() {
+      const query = document.getElementById('search-key-input').value.toLowerCase();
+      const tierFilter = document.getElementById('filter-tier-select').value;
+      const allEntries = Object.entries(cachedData.keys || {});
+
+      const filtered = allEntries.filter(([k, v]) => {
+        if (k === 'free_claims' || k === 'free_sessions' || k === 'settings' || k === 'resellers') return false;
+        const matchesQuery = k.toLowerCase().includes(query) || (v.hwid && v.hwid.toLowerCase().includes(query)) || (v.notes && v.notes.toLowerCase().includes(query));
+        const matchesTier = tierFilter === 'all' || (v.tier && v.tier.includes(tierFilter));
+        return matchesQuery && matchesTier;
+      });
+
+      renderKeysTable(filtered);
+    }
+
+    // Video Sound Controller removed
+
+    // Live 1-second countdown ticker for active keys in database table
+    setInterval(() => {
+      const activeRows = document.querySelectorAll('#keys-table-rows tr');
+      if (activeRows.length > 0 && currentKeysCache && Array.isArray(currentKeysCache)) {
+        // Only update if manage-keys view is currently visible
+        const manageView = document.getElementById('view-manage-keys');
+        if (manageView && !manageView.classList.contains('hidden')) {
+          renderKeysTable(currentKeysCache);
+        }
+      }
+    }, 1000);
+
+    function handleLogout() {
+      localStorage.removeItem(CONFIG.storageKey);
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

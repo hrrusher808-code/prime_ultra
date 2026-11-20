@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PRIME ULTRA — Secure Client Access</title>
+    <!-- Modern Luxury Fonts & Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <style>
+        :root {
+            --bg-base: #07080B;
+            --accent-primary: #8B5CF6;
+            --accent-glow: rgba(139, 92, 246, 0.35);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #F8FAFC;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 1rem;
+            position: relative;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Ambient Luxury Glow Backdrop */
+        .ambient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 15% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+        }
+
+        /* Apple/Linear Grade Glass Card */
+        .luxury-card {
+            background: rgba(15, 17, 24, 0.72);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.85),
+                0 0 1px 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Luxury Input Field */
+        .luxury-input {
+            background: rgba(8, 9, 13, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            color: #FFFFFF;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.25s ease;
+            user-select: text;
+        }
+
+        .luxury-input:focus {
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.15);
+            outline: none;
+            background: rgba(12, 14, 20, 0.85);
+        }
+
+        /* Buttons */
+        .btn-luxury-primary {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+            box-shadow: 0 8px 24px -4px rgba(139, 92, 246, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-luxury-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-luxury-primary:hover::after {
+            left: 100%;
+        }
+
+        .btn-luxury-primary:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 12px 28px -4px rgba(139, 92, 246, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            filter: brightness(1.05);
+        }
+
+        .btn-luxury-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-luxury-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #E2E8F0;
+            transition: all 0.25s ease;
+        }
+
+        .btn-luxury-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.16);
+            color: #FFFFFF;
+            transform: translateY(-1.5px);
+        }
+
+        .btn-luxury-secondary:active {
+            transform: scale(0.98);
+        }
+
+        /* Subtle Pulse Aura */
+        .aura-glow {
+            box-shadow: 0 0 35px -5px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Shake Animation */
+        .shake-anim {
+            animation: shake 0.35s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Mesh Backdrop -->
+    <div class="ambient-mesh"></div>
+
+    <!-- ========================================================================= -->
+    <!-- GATEWAY LOADER (Smooth Minimalist Shimmer) -->
+    <!-- ========================================================================= -->
+    <div id="gateway-loader" class="fixed inset-0 bg-[#07080B] flex flex-col items-center justify-center z-40 transition-opacity duration-300">
+        <div class="relative w-16 h-16 flex items-center justify-center mb-5">
+            <div class="absolute inset-0 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 animate-pulse"></div>
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                <i class="fas fa-shield-halved text-white text-base"></i>
+            </div>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-[11px] text-slate-300 font-medium tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Connecting Secure Gateway...</span>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MAIN AUTH CONTAINER -->
+    <!-- ========================================================================= -->
+    <div id="auth-main-card" class="w-full max-w-md z-10 opacity-0 pointer-events-none transition-all duration-300">
+        
+        <!-- Brand Header -->
+        <div class="text-center mb-7">
+            <div class="flex justify-center mb-3.5">
+                <div class="w-16 h-16 bg-gradient-to-tr from-indigo-600 via-purple-600 to-violet-500 rounded-2xl flex items-center justify-center shadow-xl shadow-indigo-500/25 border border-white/15 aura-glow">
+                    <i class="fas fa-shield-halved text-white text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-white mb-1.5 flex items-center justify-center gap-2">
+                <span>PRIME ULTRA</span>
+            </h1>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10.5px] text-slate-400 font-medium tracking-wide">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>PRIME CLIENT • SECURE v1.0</span>
+            </div>
+        </div>
+
+        <!-- Main Luxury Card -->
+        <div id="glass-card-box" class="luxury-card p-6 sm:p-8 relative overflow-hidden">
+            
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-white tracking-tight">License Verification</h2>
+                <p class="text-slate-400 text-xs mt-0.5">Enter your VIP signature key to activate session.</p>
+            </div>
+
+            <!-- Form -->
+            <form id="app-login-form" onsubmit="handleAppLogin(event)" class="space-y-5">
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-2">License Key</label>
+                    <div class="relative">
+                        <i class="fas fa-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                        <input type="password" id="app-key-input" required placeholder="PRIME-XXXX-XXXX-XXXX" autocomplete="off"
+                            class="luxury-input w-full pl-11 pr-20 py-3.5 rounded-2xl text-sm placeholder:text-slate-600 font-medium">
+                        <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                            <button type="button" onclick="pasteKeyFromClipboard()" title="Paste Key" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                                <i class="fas fa-paste text-xs"></i>
+                            </button>
+                            <button type="button" onclick="togglePasswordVisibility()" title="Show/Hide Key" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                                <i id="pass-eye-icon" class="fas fa-eye text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Options bar -->
+                    <div class="flex items-center justify-between mt-3 px-1 text-[11.5px] text-slate-400">
+                        <label class="flex items-center gap-2 cursor-pointer hover:text-slate-200 transition-colors">
+                            <input type="checkbox" id="chk-remember-key" checked class="w-4 h-4 rounded accent-indigo-600 bg-black/40 border-white/15 cursor-pointer">
+                            <span>Save on device</span>
+                        </label>
+                        <span class="truncate max-w-[170px] mono text-[10.5px] bg-white/[0.03] px-2 py-0.5 rounded-md border border-white/5">
+                            <span class="text-slate-500">HWID:</span> <span id="app-hwid-badge" class="text-indigo-400">Loading...</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Error Alert Box -->
+                <div id="app-error-box" class="hidden bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs p-3 rounded-xl flex items-center gap-2.5">
+                    <i class="fas fa-circle-exclamation text-rose-400 shrink-0 text-sm"></i>
+                    <span id="app-error-text" class="font-medium">Invalid License Key!</span>
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-1">
+                    <button type="submit" id="btn-app-login" class="w-full btn-luxury-primary py-3.5 px-4 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer">
+                        <span id="btn-login-text">ACTIVATE ULTRA</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Refined Footer -->
+            <div class="mt-8 pt-6 border-t border-white/[0.06] flex justify-between items-center text-slate-500 text-xs">
+                <div class="flex items-center space-x-4">
+                    <a href="https://telegram.dog/Prime_modsx" onclick="openSocialLink('https://telegram.dog/Prime_modsx'); return false;" class="hover:text-indigo-400 transition-colors flex items-center gap-1.5" aria-label="Telegram">
+                        <i class="fab fa-telegram text-sm"></i>
+                        <span class="text-[11px] font-medium text-slate-400">@PRIME_MODSX</span>
+                    </a>
+                </div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
+                    <i class="fas fa-lock text-[9px] text-indigo-400"></i>
+                    <span>256-BIT ENCRYPTED</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footnote -->
+        <div class="mt-5 text-center">
+            <p class="text-slate-500 text-[11px]">
+                Powered by <span class="text-slate-300 font-semibold">JAAT KAUM • PRIME ULTRA ENGINE</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- LUXURY DIALOG 1: MAINTENANCE MODAL -->
+    <!-- ========================================================================= -->
+    <div id="modal-web-maintenance" class="fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-[360px] bg-[#0E1017] border border-amber-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-2xl shadow-amber-950/50" id="maint-box">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl mb-4">
+                <i class="fas fa-wrench animate-pulse"></i>
+            </div>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-[10px] text-amber-300 font-semibold uppercase tracking-wider mb-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span>SYSTEM MAINTENANCE</span>
+            </div>
+
+            <h2 class="text-lg font-bold text-white tracking-tight">Under Scheduled Upgrade</h2>
+            <p class="text-xs text-slate-400 mt-1">Servers are updating for enhanced stability.</p>
+
+            <div class="bg-black/40 border border-white/5 rounded-2xl p-3.5 my-4 text-left">
+                <p class="text-[10px] text-amber-400/90 uppercase font-bold tracking-wider mb-1">Server Broadcast</p>
+                <p id="web-maint-msg" class="text-xs text-slate-300 leading-relaxed font-medium">
+                    Panel under maintenance! Join Telegram for live updates.
+                </p>
+            </div>
+
+            <div class="bg-black/30 border border-white/5 rounded-xl p-2.5 mb-4 text-left">
+                <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-1">Official Broadcast Channel:</p>
+                <div id="web-maint-link-display" class="text-xs text-indigo-400 mono break-all select-all font-medium"></div>
+            </div>
+
+            <div class="space-y-2.5">
+                <button id="btn-web-maint-action" onclick="handleMaintAction()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-amber-500/20">
+                    <i class="fab fa-telegram text-sm"></i>
+                    <span id="btn-maint-action-text">JOIN TELEGRAM CHANNEL</span>
+                </button>
+
+                <button type="button" onclick="copyUpdateLinkToClipboard()" class="w-full py-2.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/10 text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                    <i class="fas fa-copy text-xs"></i>
+                    <span id="btn-copy-maint-text">COPY TELEGRAM LINK</span>
+                </button>
+
+                <button onclick="exitAppFromWeb()" class="w-full py-2 text-slate-500 hover:text-slate-300 text-xs font-medium transition-all cursor-pointer">
+                    Exit Application
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- LUXURY DIALOG 2: UPDATE REQUIRED MODAL -->
+    <!-- ========================================================================= -->
+    <div id="modal-web-update" class="fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-[360px] bg-[#0E1017] border border-indigo-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-2xl shadow-indigo-950/50" id="update-box">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl mb-4">
+                <i class="fas fa-arrow-down-to-bracket animate-bounce"></i>
+            </div>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-[10px] text-indigo-300 font-semibold uppercase tracking-wider mb-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span id="web-update-badge">MANDATORY v1.0</span>
+            </div>
+
+            <h2 class="text-lg font-bold text-white tracking-tight">Security Update Required</h2>
+            <p class="text-xs text-slate-400 mt-1">A new version of PRIME ULTRA is ready.</p>
+
+            <div class="bg-black/40 border border-white/5 rounded-2xl p-3.5 my-4 text-left">
+                <p class="text-[10px] text-indigo-400 uppercase font-bold tracking-wider mb-1">Release Highlights</p>
+                <p id="web-update-msg" class="text-xs text-slate-300 leading-relaxed font-medium">
+                    App version outdated! Please update to continue using the VIP system.
+                </p>
+            </div>
+
+            <div class="bg-black/30 border border-white/5 rounded-xl p-2.5 mb-4 text-left">
+                <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-1">Download Link:</p>
+                <div id="web-update-link-display" class="text-xs text-indigo-400 mono break-all select-all font-medium"></div>
+            </div>
+
+            <div class="space-y-2.5">
+                <button id="btn-web-update-action" onclick="handleUpdateAction()" class="btn-luxury-primary w-full py-3 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fas fa-download text-xs"></i>
+                    <span id="btn-update-action-text">DOWNLOAD UPDATE NOW</span>
+                </button>
+
+                <button type="button" onclick="copyUpdateLinkToClipboard()" class="w-full py-2.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/10 text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                    <i class="fas fa-copy text-xs"></i>
+                    <span id="btn-copy-update-text">COPY DOWNLOAD LINK</span>
+                </button>
+
+                <button onclick="exitAppFromWeb()" class="w-full py-2 text-slate-500 hover:text-slate-300 text-xs font-medium transition-all cursor-pointer">
+                    Exit Application
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- LUXURY DIALOG 3: LOGIN SUCCESS MODAL -->
+    <!-- ========================================================================= -->
+    <div id="success-popup" class="fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-[360px] bg-[#0E1017] border border-emerald-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-2xl shadow-emerald-950/40" id="popup-content">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-4">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <h2 class="text-xl font-extrabold text-white tracking-tight">Access Granted</h2>
+            <p class="text-xs text-slate-400 mt-0.5">VIP License Verified &amp; Activated</p>
+
+            <div class="bg-black/40 border border-white/5 rounded-2xl p-4 my-4 text-left text-xs space-y-2.5">
+                <div class="flex justify-between items-center text-slate-400 pb-2 border-b border-white/[0.06]">
+                    <span>Plan Tier</span>
+                    <span id="pop-tier" class="text-amber-400 font-bold">VIP Lifetime</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 pb-2 border-b border-white/[0.06]">
+                    <span>Distributor</span>
+                    <span id="pop-seller" class="text-indigo-400 font-bold">PRIME ULTRA</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 pb-2 border-b border-white/[0.06]">
+                    <span>Expiration</span>
+                    <span id="pop-expiry" class="text-emerald-400 font-bold">Never</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 pb-2 border-b border-white/[0.06]">
+                    <span>HWID Lock</span>
+                    <span class="text-purple-400 font-bold flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping"></span>
+                        Device Bound
+                    </span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400">
+                    <span>Security Integrity</span>
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                        <i class="fas fa-shield text-[10px]"></i> Active VIP
+                    </span>
+                </div>
+            </div>
+
+            <div id="pop-motd-container" class="bg-indigo-500/10 border border-indigo-500/20 p-3 rounded-2xl text-left mb-5">
+                <p class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider mb-0.5">Server Notice</p>
+                <p id="pop-motd-text" class="text-xs text-slate-300 font-medium">Welcome to PRIME ULTRA VIP!</p>
+            </div>
+
+            <button onclick="launchAppMod()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-lg shadow-emerald-500/25 transition-all cursor-pointer">
+                LAUNCH VIP OVERLAY
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- AUTH LOGIC ENGINE -->
+    <!-- ========================================================================= -->
+    <script>
+        const APP_CONFIG = {
+            workerUrl: "https://jaat-ultra.hrrusher808.workers.dev",
+            storageKey: "JAAT_APP_SAVED_KEY",
+            clientVersion: "1.0"
+        };
+
+        let verifiedSession = null;
+        let liveServerSettings = null;
+        let activeUpdateUrl = "";
+
+        // Version Comparison
+        function isVersionOlder(current, target) {
+            try {
+                const cParts = (current || "").split('.').map(p => parseInt(p.replace(/\D+/g, '')) || 0);
+                const tParts = (target || "").split('.').map(p => parseInt(p.replace(/\D+/g, '')) || 0);
+                const len = Math.max(cParts.length, tParts.length);
+                for (let i = 0; i < len; i++) {
+                    const c = cParts[i] || 0;
+                    const t = tParts[i] || 0;
+                    if (c < t) return true;
+                    if (c > t) return false;
+                }
+                return false;
+            } catch (e) {
+                return current !== target;
+            }
+        }
+
+        function hideLoader() {
+            const loader = document.getElementById('gateway-loader');
+            if (loader) {
+                loader.classList.add('opacity-0');
+                setTimeout(() => { loader.classList.add('hidden'); }, 300);
+            }
+        }
+
+        function showAuthCard() {
+            const card = document.getElementById('auth-main-card');
+            if (card) {
+                card.classList.remove('opacity-0');
+                card.classList.remove('pointer-events-none');
+            }
+        }
+
+        function getHWID() {
+            if (window.Android && typeof window.Android.getHWID === 'function') {
+                try { return window.Android.getHWID(); } catch(e){}
+            }
+            let hwid = localStorage.getItem("JAAT_APP_HWID");
+            if (!hwid) {
+                hwid = "HWID-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+                localStorage.setItem("JAAT_APP_HWID", hwid);
+            }
+            return hwid;
+        }
+
+        function openSocialLink(url) {
+            if (!url) return;
+            if (window.Android && typeof window.Android.openUrl === 'function') {
+                try {
+                    window.Android.openUrl(url);
+                    return;
+                } catch(e) {}
+            }
+            window.open(url, '_blank');
+        }
+
+        function openExternalUrl(targetUrl) {
+            let rawUrl = (targetUrl || activeUpdateUrl || "").trim();
+            if (!rawUrl) { alert("Download link not configured in Server Settings!"); return; }
+
+            if (window.Android && typeof window.Android.openUrl === 'function') {
+                try {
+                    window.Android.openUrl(rawUrl);
+                    copyUpdateLinkToClipboard();
+                    return;
+                } catch(e){}
+            }
+            copyUpdateLinkToClipboard();
+        }
+
+        function copyUpdateLinkToClipboard() {
+            let rawUrl = (activeUpdateUrl || "").trim();
+            if (!rawUrl) { alert("Download link not configured in Server Settings!"); return; }
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(rawUrl);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = rawUrl;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+            } catch(e){
+                try {
+                    const ta = document.createElement('textarea');
+                    ta.value = rawUrl;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                } catch(err){}
+            }
+
+            const updateCopyEl = document.getElementById('btn-copy-update-text');
+            if (updateCopyEl) {
+                updateCopyEl.innerText = "COPIED TO CLIPBOARD!";
+                setTimeout(() => { updateCopyEl.innerText = "COPY DOWNLOAD LINK"; }, 3000);
+            }
+            const maintCopyEl = document.getElementById('btn-copy-maint-text');
+            if (maintCopyEl) {
+                maintCopyEl.innerText = "COPIED TO CLIPBOARD!";
+                setTimeout(() => { maintCopyEl.innerText = "COPY TELEGRAM LINK"; }, 3000);
+            }
+        }
+
+        function handleMaintAction() { openExternalUrl(activeUpdateUrl); }
+        function handleUpdateAction() { openExternalUrl(activeUpdateUrl); }
+
+        function exitAppFromWeb() {
+            if (window.Android && typeof window.Android.exitApp === 'function') {
+                window.Android.exitApp();
+                return;
+            }
+            try { window.close(); } catch (e) {}
+            isSecurityLockActive = false;
+            document.body.innerHTML = '<div style="position:fixed;inset:0;background:#07080B;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:sans-serif;user-select:none;z-index:99999;"><div style="width:56px;height:56px;border-radius:18px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);display:flex;align-items:center;justify-content:center;color:#EF4444;font-size:22px;margin-bottom:16px;">✕</div><h2 style="font-size:16px;font-weight:700;color:#F8FAFC;margin:0 0 6px 0;">APPLICATION CLOSED</h2><p style="font-size:12px;color:#64748B;margin:0 0 20px 0;">Please press your phone Back button or swipe up to exit.</p></div>';
+        }
+
+        let isSecurityLockActive = false;
+
+        setInterval(() => {
+            if (isSecurityLockActive) {
+                const maintModal = document.getElementById('modal-web-maintenance');
+                const updateModal = document.getElementById('modal-web-update');
+                const authCard = document.getElementById('auth-main-card');
+
+                const isMaintHidden = !maintModal || maintModal.classList.contains('hidden') || maintModal.style.display === 'none';
+                const isUpdateHidden = !updateModal || updateModal.classList.contains('hidden') || updateModal.style.display === 'none';
+                const isAuthTampered = authCard && (!authCard.classList.contains('pointer-events-none') || !authCard.classList.contains('opacity-0'));
+
+                if ((isMaintHidden && isUpdateHidden) || isAuthTampered) {
+                    if (window.Android && typeof window.Android.exitApp === 'function') {
+                        window.Android.exitApp();
+                    }
+                    document.body.innerHTML = '<div style="background:#000;color:#ef4444;padding:40px;text-align:center;font-family:monospace;font-weight:bold;font-size:16px;">SECURITY VIOLATION: TAMPER DETECTED<br><br>SESSION TERMINATED</div>';
+                }
+            }
+        }, 400);
+
+        function showWebMaintenanceModal(message, downloadLink) {
+            isSecurityLockActive = true;
+            if (downloadLink) activeUpdateUrl = downloadLink;
+            const msgEl = document.getElementById('web-maint-msg');
+            if (msgEl) msgEl.innerText = message || "Panel under maintenance! Join Telegram for updates.";
+            const linkDisp = document.getElementById('web-maint-link-display');
+            if (linkDisp) linkDisp.innerText = activeUpdateUrl || "Not configured on server";
+            const modal = document.getElementById('modal-web-maintenance');
+            const box = document.getElementById('maint-box');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    if (box) { box.classList.remove('scale-95'); box.classList.add('scale-100'); }
+                }, 20);
+            }
+            hideLoader();
+        }
+
+        function showWebUpdateModal(message, downloadLink, requiredVersion) {
+            isSecurityLockActive = true;
+            if (downloadLink) activeUpdateUrl = downloadLink;
+            const msgEl = document.getElementById('web-update-msg');
+            if (msgEl) msgEl.innerText = message || `App version outdated! Please update to PRIME ULTRA v${requiredVersion || '1.0'} to continue.`;
+            const linkDisp = document.getElementById('web-update-link-display');
+            if (linkDisp) linkDisp.innerText = activeUpdateUrl || "Not configured on server";
+            const badgeEl = document.getElementById('web-update-badge');
+            if (badgeEl && requiredVersion) badgeEl.innerText = `MANDATORY v${requiredVersion}`;
+            const modal = document.getElementById('modal-web-update');
+            const box = document.getElementById('update-box');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    if (box) { box.classList.remove('scale-95'); box.classList.add('scale-100'); }
+                }, 20);
+            }
+            hideLoader();
+        }
+
+        async function checkLiveServerStatus() {
+            try {
+                const res = await fetch(`${APP_CONFIG.workerUrl}/app/status?_t=${Date.now()}`);
+                if (!res.ok) {
+                    hideLoader();
+                    showAuthCard();
+                    return;
+                }
+                const statusData = await res.json();
+                liveServerSettings = statusData;
+
+                if (statusData.updateUrl) activeUpdateUrl = statusData.updateUrl;
+
+                if (statusData.serverStatus === "maintenance") {
+                    showWebMaintenanceModal(statusData.maintenanceMsg, statusData.updateUrl);
+                    return;
+                }
+
+                let appVer = APP_CONFIG.clientVersion;
+                if (window.Android && typeof window.Android.getAppVersion === 'function') {
+                    try { appVer = window.Android.getAppVersion(); } catch(e){}
+                }
+
+                const requiredVersion = statusData.appVersion || "1.0";
+                if (isVersionOlder(appVer, requiredVersion)) {
+                    showWebUpdateModal(statusData.outdatedMsg, statusData.updateUrl, requiredVersion);
+                    return;
+                }
+
+                hideLoader();
+                showAuthCard();
+            } catch (err) {
+                hideLoader();
+                showAuthCard();
+            }
+        }
+
+        checkLiveServerStatus();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hwid = getHWID();
+            const badge = document.getElementById('app-hwid-badge');
+            if (badge) badge.innerText = hwid;
+
+            const savedKey = localStorage.getItem(APP_CONFIG.storageKey);
+            if (savedKey) {
+                const input = document.getElementById('app-key-input');
+                if (input) input.value = savedKey;
+            }
+        });
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('app-key-input');
+            const icon = document.getElementById('pass-eye-icon');
+            if (!input) return;
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            if (icon) {
+                icon.classList.toggle('fa-eye', !isHidden);
+                icon.classList.toggle('fa-eye-slash', isHidden);
+            }
+        }
+
+        async function pasteKeyFromClipboard() {
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    if (text) document.getElementById('app-key-input').value = text.trim();
+                } else if (window.Android && typeof window.Android.getClipboard === 'function') {
+                    document.getElementById('app-key-input').value = window.Android.getClipboard().trim();
+                }
+            } catch(e) {
+                alert("Please paste key directly into the input box!");
+            }
+        }
+
+
+
+        async function handleAppLogin(e) {
+            if (e) e.preventDefault();
+
+            const keyInput = document.getElementById('app-key-input').value.trim();
+            const errBox = document.getElementById('app-error-box');
+            const btn = document.getElementById('btn-app-login');
+            const btnText = document.getElementById('btn-login-text');
+
+            if (!keyInput) return;
+
+            errBox.classList.add('hidden');
+            btn.disabled = true;
+            btnText.innerHTML = '<span class="animate-pulse">VERIFYING...</span>';
+
+            const hwid = getHWID();
+
+            try {
+                let appVer = APP_CONFIG.clientVersion;
+                if (window.Android && typeof window.Android.getAppVersion === 'function') {
+                    try { appVer = window.Android.getAppVersion(); } catch(e){}
+                }
+
+                let reqPayload = JSON.stringify({ key: keyInput, hwid: hwid, version: appVer });
+                if (window.Android && typeof window.Android.encryptAppPayload === 'function') {
+                    const encPayload = window.Android.encryptAppPayload(reqPayload);
+                    if (encPayload) {
+                        reqPayload = JSON.stringify({ data: encPayload });
+                    }
+                }
+
+                const res = await fetch(`${APP_CONFIG.workerUrl}/app/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: reqPayload
+                });
+
+                let data = await res.json();
+
+                if (data && data.data) {
+                    if (window.Android && typeof window.Android.decryptAppPayload === 'function') {
+                        const decStr = window.Android.decryptAppPayload(data.data);
+                        if (decStr) {
+                            try { data = JSON.parse(decStr); } catch (e) {}
+                        }
+                    }
+                }
+
+                if (data.status === "MAINTENANCE") {
+                    showWebMaintenanceModal(data.message || "Panel under maintenance! Join Telegram for updates.", data.download_link);
+                    return;
+                }
+
+                if (data.status === "OUTDATED") {
+                    showWebUpdateModal(data.message || "App version outdated! Please update to continue.", data.download_link, data.version);
+                    return;
+                }
+
+                if (data.status === "SUCCESS") {
+                    if (document.getElementById('chk-remember-key').checked) {
+                        localStorage.setItem(APP_CONFIG.storageKey, keyInput);
+                    } else {
+                        localStorage.removeItem(APP_CONFIG.storageKey);
+                    }
+
+                    verifiedSession = data;
+                    showSuccessPopup(data);
+                } else {
+                    showError(data.message || "Invalid or Expired License Key!");
+                }
+            } catch (err) {
+                showError("Server unreachable! Check internet connection.");
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = "ACTIVATE VIP";
+            }
+        }
+
+        function showError(msg) {
+            const errBox = document.getElementById('app-error-box');
+            const errText = document.getElementById('app-error-text');
+            errText.innerText = msg;
+            errBox.classList.remove('hidden');
+
+            const card = document.getElementById('glass-card-box');
+            if (card) {
+                card.classList.remove('shake-anim');
+                void card.offsetWidth;
+                card.classList.add('shake-anim');
+            }
+        }
+
+        let popupTimerInterval = null;
+
+        function showSuccessPopup(data) {
+            if (popupTimerInterval) clearInterval(popupTimerInterval);
+
+            document.getElementById('pop-tier').innerText = data.tier || "VIP Lifetime";
+            document.getElementById('pop-seller').innerText = data.seller || "PRIME ULTRA";
+
+            const expElem = document.getElementById('pop-expiry');
+            if (data.expires_at && data.expires !== "Never" && !data.expires?.includes("Permanent")) {
+                const expTime = new Date(data.expires_at).getTime();
+                function updateTick() {
+                    const ms = expTime - Date.now();
+                    if (ms <= 0) {
+                        expElem.innerText = "Expired";
+                        expElem.className = "text-rose-400 font-bold";
+                        if (popupTimerInterval) clearInterval(popupTimerInterval);
+                        return;
+                    }
+                    const totalSecs = Math.floor(ms / 1000);
+                    const h = Math.floor(totalSecs / 3600);
+                    const m = Math.floor((totalSecs % 3600) / 60);
+                    const s = totalSecs % 60;
+                    let timeStr = "";
+                    if (h >= 24) {
+                        const d = Math.floor(h / 24);
+                        timeStr = `${d}d ${h % 24}h ${m}m ${s}s`;
+                    } else if (h > 0) {
+                        timeStr = `${h}h ${m}m ${s}s`;
+                    } else {
+                        timeStr = `${m}m ${s}s`;
+                    }
+                    expElem.innerText = `${timeStr} left`;
+                }
+                updateTick();
+                popupTimerInterval = setInterval(updateTick, 1000);
+            } else {
+                expElem.innerText = data.expires || "Never";
+            }
+
+            const noticeText = (data.notes && data.notes.trim()) ? data.notes.trim() : (data.announcement ? data.announcement.trim() : "");
+            if (noticeText) {
+                document.getElementById('pop-motd-text').innerText = noticeText;
+                document.getElementById('pop-motd-container').classList.remove('hidden');
+            } else {
+                document.getElementById('pop-motd-container').classList.add('hidden');
+            }
+
+            const modal = document.getElementById('success-popup');
+            const content = document.getElementById('popup-content');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 30);
+        }
+
+        function launchAppMod() {
+            const encToken = (verifiedSession && verifiedSession.enc_token) ? verifiedSession.enc_token : "";
+            const key = (verifiedSession && verifiedSession.key) ? verifiedSession.key : "";
+            const tier = (verifiedSession && verifiedSession.tier) ? verifiedSession.tier : "";
+            const expires = (verifiedSession && verifiedSession.expires) ? verifiedSession.expires : "";
+            const seller = (verifiedSession && verifiedSession.seller) ? verifiedSession.seller : "PRIME ULTRA";
+            const sessionSalt = (verifiedSession && verifiedSession.session_salt) ? verifiedSession.session_salt : "";
+
+            if (window.Android) {
+                if (typeof window.Android.onLoginSuccessWithSalt === 'function') {
+                    window.Android.onLoginSuccessWithSalt(encToken, key, tier, expires, seller, sessionSalt);
+                    return;
+                }
+                if (typeof window.Android.onLoginSuccess === 'function') {
+                    window.Android.onLoginSuccess(encToken, key, tier, expires, seller);
+                    return;
+                }
+                if (typeof window.Android.onLoginSuccessEncrypted === 'function') {
+                    window.Android.onLoginSuccessEncrypted(encToken);
+                    return;
+                }
+            }
+
+            alert(`[SUCCESS] VIP ACCESS ACTIVATED!\n\nPlan: ${tier}\nExpires: ${expires}\n\nAES-256 Dynamic Session Token:\n${encToken}`);
+
+            const modal = document.getElementById('success-popup');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.add('opacity-0');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAAT OP KEY SYSTEM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@400;600;700;800&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-abyss: #030a06;
+      --green-core: #10b981;
+      --green-dark: #047857;
+      --green-bright: #34d399;
+      --gold-accent: #e0a96d;
+      --pale-warm: #ecfdf5;
+      --muted-green: #7bb89e;
+      --glass-border: rgba(16, 185, 129, 0.28);
+      --glass-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.85);
+      --glass-blur: blur(12px) saturate(150%);
+      --green-glow: 0 0 25px rgba(16, 185, 129, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-abyss);
+      color: var(--pale-warm);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      position: relative;
+    }
+
+    /* Fullscreen Background Video (Sharp & Unfiltered) */
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center 20%;
+      z-index: 0;
+      opacity: 1;
+      filter: contrast(1.06) saturate(1.1);
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .bg-video.hidden-video {
+      opacity: 0;
+    }
+
+    /* Minimal Edge Vignette (Center stays 100% clear) */
+    .video-overlay-tint {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at 50% 42%,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(3, 10, 6, 0.28) 70%,
+        rgba(1, 4, 2, 0.65) 100%
+      );
+    }
+
+    /* White Rain / Star Streaks Canvas */
+    #rainCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    /* Top-Right Floating Controls Bar */
+    .top-controls-bar {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(6, 20, 12, 0.55);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .ctrl-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: rgba(6, 20, 12, 0.6);
+      color: var(--muted-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .ctrl-btn:hover {
+      border-color: var(--green-bright);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .ctrl-btn.active {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-core));
+      border-color: var(--green-bright);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.45);
+    }
+
+    .ctrl-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Main Centered Card Wrapper */
+    .portal-shell {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Hero Header Above Card */
+    .hero-block {
+      text-align: center;
+      margin-bottom: 18px;
+      width: 100%;
+    }
+
+    .top-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3.5px;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(224, 169, 109, 0.45);
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.95),
+        0 0 25px rgba(16, 185, 129, 0.45);
+      line-height: 1.15;
+    }
+
+    .hero-motto {
+      margin-top: 6px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted-green);
+    }
+
+    /* Symmetrical Side Badges */
+    .badges-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .ninja-tag {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(8, 28, 18, 0.6);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .ninja-tag svg {
+      width: 15px;
+      height: 15px;
+      stroke: var(--gold-accent);
+      fill: none;
+      stroke-width: 1.8;
+      flex-shrink: 0;
+    }
+
+    .ninja-tag .kanji {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pale-warm);
+      text-shadow: 0 0 8px var(--green-core);
+    }
+
+    .ninja-tag .tag-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted-green);
+    }
+
+    /* Ornamental Divider */
+    .ornament-divider {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 14px 0 18px;
+      position: relative;
+    }
+
+    .ornament-divider::before,
+    .ornament-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+    }
+
+    .ornament-divider::before {
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.45));
+    }
+
+    .ornament-divider::after {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.45), transparent);
+    }
+
+    .ornament-pill {
+      padding: 3px 11px;
+      margin: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(224, 169, 109, 0.45);
+      background: rgba(6, 20, 12, 0.78);
+      color: var(--gold-accent);
+      font-size: 11px;
+      line-height: 1;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Glassmorphic Login Frame */
+    .login-frame {
+      position: relative;
+      width: 100%;
+      padding: 28px 24px 22px;
+      border-radius: 20px;
+      background: linear-gradient(
+        180deg,
+        rgba(16, 185, 129, 0.12) 0%,
+        rgba(8, 28, 18, 0.52) 40%,
+        rgba(4, 14, 9, 0.74) 100%
+      );
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: var(--glass-shadow), var(--green-glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Corner Brackets */
+    .login-frame::before,
+    .login-frame::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      pointer-events: none;
+    }
+
+    .login-frame::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid var(--gold-accent);
+      border-left: 2px solid var(--gold-accent);
+      border-top-left-radius: 20px;
+    }
+
+    .login-frame::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 2px solid var(--gold-accent);
+      border-right: 2px solid var(--gold-accent);
+      border-bottom-right-radius: 20px;
+    }
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form-header svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gold-accent);
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .form-header span {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pale-warm);
+    }
+
+    /* Input Box */
+    .input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(4, 14, 9, 0.72);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.55);
+      padding: 0 14px;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .input-box:focus-within {
+      border-color: var(--green-core);
+      background: rgba(2, 10, 6, 0.88);
+      box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.6),
+        0 0 15px rgba(16, 185, 129, 0.35);
+    }
+
+    .input-icon {
+      width: 17px;
+      height: 17px;
+      stroke: var(--muted-green);
+      fill: none;
+      stroke-width: 1.9;
+      flex-shrink: 0;
+      transition: stroke 0.25s ease;
+    }
+
+    .input-box:focus-within .input-icon {
+      stroke: var(--green-bright);
+    }
+
+    #key-input {
+      flex: 1;
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    #key-input::placeholder {
+      color: rgba(236, 253, 245, 0.32);
+      font-size: 11px;
+      letter-spacing: 1.6px;
+      font-weight: 600;
+    }
+
+    .toggle-vis-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted-green);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      transition: color 0.2s ease;
+      outline: none;
+    }
+
+    .toggle-vis-btn:hover {
+      color: var(--green-bright);
+    }
+
+    .toggle-vis-btn svg {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+    }
+
+    /* Verify Button */
+    .btn-verify-key {
+      margin-top: 16px;
+      width: 100%;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid var(--green-bright);
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-core) 100%);
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(4, 120, 87, 0.45);
+      transition: all 0.22s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-verify-key:hover:not(:disabled) {
+      filter: brightness(1.08);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .btn-verify-key:active:not(:disabled) {
+      transform: scale(0.97);
+      box-shadow: 0 0 24px rgba(52, 211, 153, 0.7);
+    }
+
+    .btn-verify-key:disabled {
+      opacity: 0.78;
+      cursor: not-allowed;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      margin-top: 16px;
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(4, 14, 9, 0.72);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--muted-green);
+      transition: all 0.25s ease;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green-bright);
+      box-shadow: 0 0 8px var(--green-bright);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    .status-pill.error {
+      background: rgba(65, 12, 16, 0.78);
+      border-color: rgba(248, 113, 113, 0.55);
+      color: #f87171;
+    }
+
+    .status-pill.error .status-dot {
+      background: #f87171;
+      box-shadow: 0 0 10px #f87171;
+    }
+
+    .status-pill.success {
+      background: rgba(6, 55, 38, 0.85);
+      border-color: rgba(110, 231, 183, 0.65);
+      color: #6ee7b7;
+    }
+
+    .status-pill.success .status-dot {
+      background: #34d399;
+      box-shadow: 0 0 10px #34d399;
+    }
+
+    .card-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: rgba(123, 184, 158, 0.65);
+    }
+
+    .card-footer span {
+      color: var(--gold-accent);
+      font-weight: 700;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.55; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.18); }
+    }
+
+    .shake-anim {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 22px; letter-spacing: 3px; }
+      .login-frame { padding: 24px 18px 20px; }
+      .top-controls-bar { top: 12px; right: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sequential Muted Background Video Player (A -> B -> C -> loop) -->
+  <video id="bgVideo" class="bg-video" autoplay muted playsinline preload="auto"></video>
+
+  <!-- Dark Vignette Overlay -->
+  <div class="video-overlay-tint"></div>
+
+  <!-- Animated Ember / Rain Canvas -->
+  <canvas id="rainCanvas"></canvas>
+
+  <!-- Background Song (Controlled by Audio Toggle) -->
+  <audio id="bgAudio" src="SONG.mp3" loop preload="auto"></audio>
+
+  <!-- Top-Right Controls Bar -->
+  <div class="top-controls-bar">
+    <button type="button" id="btnVideoToggle" class="ctrl-btn active" title="Toggle Background Video" aria-label="Toggle Background Video">
+      <svg viewBox="0 0 24 24">
+        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+      </svg>
+    </button>
+    <button type="button" id="btnAudioToggle" class="ctrl-btn active" title="Toggle Background Music" aria-label="Toggle Background Music">
+      <svg id="audioIcon" viewBox="0 0 24 24">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main Centered Portal -->
+  <div class="portal-shell">
+    <div class="hero-block">
+      <div class="top-subtitle">✦ 永遠の力 ✦</div>
+      <h1 class="hero-title">JAAT OP PORTAL</h1>
+      <div class="hero-motto">Owner &amp; Reseller Control Center</div>
+
+      <div class="badges-row">
+        <div class="ninja-tag">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L15 8l6 1-4.5 4.2L17.6 20 12 16.8 6.4 20l1.1-6.8L3 9l6-1z"></path>
+          </svg>
+          <span class="kanji">王</span>
+          <span class="tag-label">OWNER</span>
+        </div>
+        <div class="ninja-tag">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+          </svg>
+          <span class="kanji">鍵</span>
+          <span class="tag-label">RESELLER</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornament-divider">
+      <span class="ornament-pill">❖</span>
+    </div>
+
+    <!-- Login Card -->
+    <div id="login-card" class="login-frame">
+      <div class="form-header">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>SECURE LOGIN</span>
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+
+      <form id="key-form" onsubmit="verifyKey(event)">
+        <div class="input-box">
+          <svg class="input-icon" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+
+          <input
+            type="password"
+            id="key-input"
+            required
+            placeholder="ENTER ADMIN / RESELLER KEY"
+            autocomplete="off"
+          />
+
+          <button type="button" class="toggle-vis-btn" onclick="togglePassword()" title="Toggle Key Visibility" aria-label="Toggle Key Visibility">
+            <svg id="eye-icon" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-verify-key">
+          <span id="btn-text">VERIFY KEY ➔</span>
+        </button>
+
+        <div id="loginStatusPill" class="status-pill">
+          <span class="status-dot"></span>
+          <span id="statusText">SYSTEM STATUS: READY</span>
+        </div>
+      </form>
+
+      <div class="card-footer">
+        Protected by <span>JAAT OP Security Engine</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Video Playlist (A -> B -> C -> A), Audio (SONG.mp3), Toggles & Rain Canvas -->
+  <script>
+    (function initMediaAndFX() {
+      const playlist = ["A.mp4", "B.mp4", "C.mp4"];
+      let currentVideoIdx = 0;
+      let isVideoEnabled = true;
+
+      const bgVideo = document.getElementById("bgVideo");
+      const btnVideoToggle = document.getElementById("btnVideoToggle");
+
+      function loadAndPlayVideo(idx) {
+        currentVideoIdx = idx % playlist.length;
+        bgVideo.src = playlist[currentVideoIdx];
+        bgVideo.muted = true;
+        bgVideo.volume = 0;
+        if (isVideoEnabled) {
+          bgVideo.play().catch(() => {});
+        }
+      }
+
+      bgVideo.addEventListener("ended", () => {
+        loadAndPlayVideo(currentVideoIdx + 1);
+      });
+
+      bgVideo.addEventListener("error", () => {
+        // Skip to next clip if a file fails to load
+        if (playlist.length > 1) {
+          loadAndPlayVideo(currentVideoIdx + 1);
+        }
+      });
+
+      btnVideoToggle.addEventListener("click", () => {
+        isVideoEnabled = !isVideoEnabled;
+        btnVideoToggle.classList.toggle("active", isVideoEnabled);
+        if (isVideoEnabled) {
+          bgVideo.classList.remove("hidden-video");
+          bgVideo.muted = true;
+          bgVideo.play().catch(() => {});
+        } else {
+          bgVideo.classList.add("hidden-video");
+          bgVideo.pause();
+        }
+      });
+
+      loadAndPlayVideo(0);
+
+      // Background Music (SONG.mp3)
+      const bgAudio = document.getElementById("bgAudio");
+      const btnAudioToggle = document.getElementById("btnAudioToggle");
+      const audioIcon = document.getElementById("audioIcon");
+      let isAudioEnabled = true;
+
+      function setAudioIcon(enabled) {
+        if (enabled) {
+          audioIcon.innerHTML = `
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          `;
+        } else {
+          audioIcon.innerHTML = `
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          `;
+        }
+      }
+
+      function tryStartAudio() {
+        if (!isAudioEnabled) return;
+        bgAudio.volume = 0.65;
+        bgAudio.play().catch(() => {});
+      }
+
+      btnAudioToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        isAudioEnabled = !isAudioEnabled;
+        btnAudioToggle.classList.toggle("active", isAudioEnabled);
+        setAudioIcon(isAudioEnabled);
+        if (isAudioEnabled) {
+          tryStartAudio();
+        } else {
+          bgAudio.pause();
+        }
+      });
+
+      // Attempt immediate playback and unlock on first user interaction if browser blocks autoplay
+      tryStartAudio();
+      const unlockAudio = () => {
+        if (isAudioEnabled && bgAudio.paused) {
+          tryStartAudio();
+        }
+        window.removeEventListener("pointerdown", unlockAudio);
+        window.removeEventListener("keydown", unlockAudio);
+      };
+      window.addEventListener("pointerdown", unlockAudio);
+      window.addEventListener("keydown", unlockAudio);
+
+      // White Rain / Star Streaks Canvas
+      const canvas = document.getElementById("rainCanvas");
+      const ctx = canvas.getContext("2d");
+      let drops = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function initDrops() {
+        const count = Math.min(95, Math.floor(window.innerWidth / 14));
+        drops = Array.from({ length: count }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          len: 10 + Math.random() * 22,
+          speed: 3 + Math.random() * 5.5,
+          opacity: 0.25 + Math.random() * 0.55
+        }));
+      }
+
+      function drawRain() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const d of drops) {
+          ctx.beginPath();
+          ctx.moveTo(d.x, d.y);
+          ctx.lineTo(d.x - 1.5, d.y + d.len);
+          ctx.strokeStyle = `rgba(255, 255, 255, ${d.opacity})`;
+          ctx.lineWidth = 1.25;
+          ctx.stroke();
+
+          d.y += d.speed;
+          d.x -= 0.4;
+          if (d.y > canvas.height + 25) {
+            d.y = -25;
+            d.x = Math.random() * (canvas.width + 40);
+          }
+        }
+        requestAnimationFrame(drawRain);
+      }
+
+      resizeCanvas();
+      initDrops();
+      drawRain();
+      window.addEventListener("resize", () => {
+        resizeCanvas();
+        initDrops();
+      });
+    })();
+  </script>
+
+  <!-- Dynamic Functional Key Engine (Preserved Owner & Reseller Auth) -->
+  <script>
+    const KEY_SYSTEM_CONFIG = {
+      workerUrl: "https://jaat-ultra.hrrusher808.workers.dev",
+      fallbackKeys: {
+        "JAAT-VIP-999":    { tier: "VIP Lifetime", expires: "Never", status: "active" },
+        "JAAT-PRO-2026":   { tier: "Lifetime Access", expires: "2030-12-31", status: "active" },
+        "JAAT-7DAY-PASS":  { tier: "7-Day Pass", expires: "2026-12-31", status: "active" }
+      },
+      enableAutoLogin: true,
+      storageKey: "JAAT_OP_KEY_SESSION"
+    };
+
+    let activeAdminKey = null;
+    let activeRole = "owner";
+
+    function getDeviceID() {
+      let dev = localStorage.getItem("JAAT_DEVICE_ID");
+      if (!dev) {
+        dev = "JAAT-DEV-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+        localStorage.setItem("JAAT_DEVICE_ID", dev);
+      }
+      return dev;
+    }
+
+    function setStatus(state, text) {
+      const pill = document.getElementById("loginStatusPill");
+      const statusText = document.getElementById("statusText");
+      pill.classList.remove("error", "success");
+      if (state === "error") pill.classList.add("error");
+      if (state === "success") pill.classList.add("success");
+      statusText.innerText = text;
+    }
+
+    function togglePassword() {
+      const input = document.getElementById("key-input");
+      const eyeIcon = document.getElementById("eye-icon");
+      if (input.type === "password") {
+        input.type = "text";
+        eyeIcon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        `;
+      } else {
+        input.type = "password";
+        eyeIcon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        `;
+      }
+    }
+
+    async function validateKeyAgainstSources(inputKey) {
+      inputKey = inputKey.trim();
+
+      if (KEY_SYSTEM_CONFIG.workerUrl && !KEY_SYSTEM_CONFIG.workerUrl.includes("YOUR_SUBDOMAIN")) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 6000);
+          const res = await fetch(`${KEY_SYSTEM_CONFIG.workerUrl}/verify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: inputKey, deviceId: getDeviceID() }),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (res.ok) {
+            const data = await res.json();
+            if (data.valid) {
+              const isOwner = !!data.isOwner;
+              const isReseller = !!data.isReseller || data.role === "reseller";
+
+              if (!isOwner && !isReseller) {
+                return {
+                  valid: false,
+                  message: "Access Denied. Administrative privileges required."
+                };
+              }
+
+              return {
+                valid: true,
+                isOwner: isOwner,
+                isReseller: isReseller,
+                role: isOwner ? "owner" : "reseller",
+                tier: data.tier || (isOwner ? "Owner Master" : "Reseller"),
+                expires: data.expires || "Never"
+              };
+            } else {
+              return { valid: false, message: data.message || "Invalid or expired key!" };
+            }
+          }
+        } catch (err) {
+          console.warn("[JAAT KEY] Cloudflare Worker timeout/offline, checking local fallback pool.");
+        }
+      }
+
+      if (KEY_SYSTEM_CONFIG.fallbackKeys[inputKey]) {
+        const info = KEY_SYSTEM_CONFIG.fallbackKeys[inputKey];
+        if (info.tier !== "Reseller" && info.tier !== "Owner Master") {
+          return {
+            valid: false,
+            message: "Access Denied. Administrative privileges required."
+          };
+        }
+        return {
+          valid: true,
+          isOwner: info.tier === "Owner Master",
+          isReseller: info.tier === "Reseller",
+          role: info.tier === "Owner Master" ? "owner" : "reseller",
+          tier: info.tier,
+          expires: info.expires
+        };
+      }
+
+      return { valid: false, message: "Invalid Key! Access Denied." };
+    }
+
+    async function verifyKey(event) {
+      if (event) event.preventDefault();
+
+      const keyInput = document.getElementById("key-input").value.trim();
+      const submitBtn = document.getElementById("submit-btn");
+      const btnText = document.getElementById("btn-text");
+
+      if (!keyInput) return;
+
+      submitBtn.disabled = true;
+      btnText.innerText = "AUTHENTICATING...";
+      setStatus("ready", "SYSTEM STATUS: VERIFYING KEY...");
+
+      const validation = await validateKeyAgainstSources(keyInput);
+
+      if (validation.valid) {
+        activeAdminKey = keyInput;
+        activeRole = validation.role || (validation.isOwner ? "owner" : "reseller");
+
+        const sessionData = {
+          key: keyInput,
+          isOwner: validation.isOwner,
+          isReseller: validation.isReseller,
+          role: activeRole,
+          tier: validation.tier,
+          expires: validation.expires,
+          deviceId: getDeviceID(),
+          loginTime: new Date().toLocaleString()
+        };
+
+        if (KEY_SYSTEM_CONFIG.enableAutoLogin) {
+          localStorage.setItem(KEY_SYSTEM_CONFIG.storageKey, JSON.stringify(sessionData));
+        }
+
+        btnText.innerText = "ACCESS GRANTED ➔";
+        setStatus("success", "ACCESS GRANTED! OPENING DASHBOARD...");
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 350);
+      } else {
+        setStatus("error", validation.message || "INVALID KEY! ACCESS DENIED.");
+
+        const card = document.getElementById("login-card");
+        card.classList.remove("shake-anim");
+        void card.offsetWidth;
+        card.classList.add("shake-anim");
+
+        submitBtn.disabled = false;
+        btnText.innerText = "VERIFY KEY ➔";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("terminated") === "1") {
+        localStorage.removeItem(KEY_SYSTEM_CONFIG.storageKey);
+        localStorage.removeItem("jaat_admin_session");
+        setStatus("error", "SESSION TERMINATED: KEY EXPIRED OR REVOKED");
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return;
+      }
+
+      if (KEY_SYSTEM_CONFIG.enableAutoLogin) {
+        const saved = localStorage.getItem(KEY_SYSTEM_CONFIG.storageKey);
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.key && (parsed.isOwner || parsed.isReseller)) {
+              setStatus("ready", "SYSTEM STATUS: RESTORING SESSION...");
+              const check = await validateKeyAgainstSources(parsed.key);
+              if (check.valid) {
+                window.location.href = "dashboard.html";
+                return;
+              }
+            }
+          } catch (e) {}
+          localStorage.removeItem(KEY_SYSTEM_CONFIG.storageKey);
+          setStatus("error", "SESSION EXPIRED! PLEASE LOGIN AGAIN.");
+        }
+      }
+    });
+  </script>
+</body>
+</html>
