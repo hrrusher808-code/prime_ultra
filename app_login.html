@@ -857,8 +857,13 @@
             const expires = (verifiedSession && verifiedSession.expires) ? verifiedSession.expires : "";
             const seller = (verifiedSession && verifiedSession.seller) ? verifiedSession.seller : "PRIME ULTRA";
             const sessionSalt = (verifiedSession && verifiedSession.session_salt) ? verifiedSession.session_salt : "";
+            const configObj = (verifiedSession && verifiedSession.config) ? verifiedSession.config : {};
 
             if (window.Android) {
+                if (typeof window.Android.onLoginSuccessWithConfig === 'function') {
+                    window.Android.onLoginSuccessWithConfig(encToken, key, tier, expires, seller, sessionSalt, JSON.stringify(configObj));
+                    return;
+                }
                 if (typeof window.Android.onLoginSuccessWithSalt === 'function') {
                     window.Android.onLoginSuccessWithSalt(encToken, key, tier, expires, seller, sessionSalt);
                     return;
