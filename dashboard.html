@@ -1062,7 +1062,7 @@
 
         // 1. AIM CHEST LITE OFFSETS
         if (document.getElementById('setting-aim-chest-lite-offsets')) {
-          let val = s.aimChestLiteOffsets || s.neckOffsets || '';
+          let val = s.aimChestLiteOffsets || '';
           if (val) {
             try {
               const parsed = typeof val === 'string' ? JSON.parse(val) : val;
@@ -1086,7 +1086,7 @@
 
         // 3. AIMBOT BODY OFFSETS
         if (document.getElementById('setting-aimbot-body-offsets')) {
-          let val = s.aimbotBodyOffsets || s.bodyOffsets || '';
+          let val = s.aimbotBodyOffsets || '';
           if (val) {
             try {
               const parsed = typeof val === 'string' ? JSON.parse(val) : val;
@@ -2048,7 +2048,7 @@
         alert("Error saving settings: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerText = "SAVE SERVER CONFIGURATION";
+        btn.innerText = "SAVE SERVER & CHEAT CONFIGURATION";
         refreshData();
       }
     }
