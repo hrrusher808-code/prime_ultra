@@ -613,7 +613,17 @@
 
             <!-- Cheat Feature Switches Grid -->
             <div>
-              <label class="block text-xs font-semibold text-violet-400 uppercase tracking-wider mb-3">Remote Cheat Modules Control (Instant Kill-Switches)</label>
+              <div class="flex items-center justify-between mb-3">
+                <label class="block text-xs font-semibold text-violet-400 uppercase tracking-wider">Remote Cheat Modules Control (Instant Kill-Switches)</label>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="setAllSwitches(false)" class="px-2.5 py-1 rounded bg-rose-950/80 hover:bg-rose-900 border border-rose-500/50 text-rose-300 text-[10px] font-mono font-bold transition-all shadow-sm">
+                    KILL ALL (OFF)
+                  </button>
+                  <button type="button" onclick="setAllSwitches(true)" class="px-2.5 py-1 rounded bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 text-[10px] font-mono font-bold transition-all shadow-sm">
+                    ENABLE ALL (ON)
+                  </button>
+                </div>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 
                 <!-- Floating Mod Switch -->
@@ -628,25 +638,37 @@
                   </select>
                 </div>
 
-                <!-- Aim Drag Switch -->
+                <!-- AIM CHEST LITE Switch -->
                 <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
                   <div>
-                    <p class="text-xs font-bold text-slate-200">Aim Drag</p>
-                    <p class="text-[10px] text-slate-500 font-mono">Button 1 Switch</p>
+                    <p class="text-xs font-bold text-cyan-300">AIM CHEST LITE</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Aimbot Switch 1</p>
                   </div>
-                  <select id="setting-enable-neck" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                  <select id="setting-enable-aim-chest-lite" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-cyan-300">
                     <option value="true">ENABLED</option>
                     <option value="false">DISABLED</option>
                   </select>
                 </div>
 
-                <!-- Aimbot Hips Switch -->
+                <!-- AIM CHEST BRUTAL Switch -->
                 <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
                   <div>
-                    <p class="text-xs font-bold text-slate-200">Aimbot Hips</p>
-                    <p class="text-[10px] text-slate-500 font-mono">Button 2 Switch</p>
+                    <p class="text-xs font-bold text-purple-300">AIM CHEST BRUTAL</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Aimbot Switch 2</p>
                   </div>
-                  <select id="setting-enable-body" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-violet-300">
+                  <select id="setting-enable-aim-chest-brutal" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-purple-300">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                  </select>
+                </div>
+
+                <!-- AIMBOT BODY Switch -->
+                <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-emerald-300">AIMBOT BODY</p>
+                    <p class="text-[10px] text-slate-500 font-mono">Aimbot Switch 3</p>
+                  </div>
+                  <select id="setting-enable-aimbot-body" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono text-emerald-300">
                     <option value="true">ENABLED</option>
                     <option value="false">DISABLED</option>
                   </select>
@@ -715,8 +737,6 @@
               <input type="text" id="setting-outdated-msg" placeholder="App version outdated! Please update to PRIME ULTRA to continue." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 font-mono">
             </div>
 
-
-
             <!-- DYNAMIC ONLINE CODE MANAGER -->
             <div class="p-4 bg-slate-950/90 rounded-2xl border border-violet-500/30 space-y-4">
               <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -724,44 +744,44 @@
                 <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-violet-950/60 text-violet-300 border border-violet-500/40">v1.0 LIVE</span>
               </div>
 
-              <!-- Aim Drag Offsets JSON -->
-              <div class="bg-slate-950/70 p-4 rounded-xl border border-amber-500/30">
-                <div class="flex items-center justify-between mb-2">
-                  <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                    AIM DRAG OFFSETS
-                  </label>
-                  <div>
-                    <button type="button" onclick="formatNeckOffsetsJson()" class="btn-action-glow px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-violet-300 font-mono text-xs border border-slate-700 transition-all shadow-sm">
-                      Format JSON
-                    </button>
-                  </div>
-                </div>
-                <textarea id="setting-neck-offsets" rows="4" placeholder="Enter Aim Drag Offsets Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-amber-200 placeholder-slate-600 focus:outline-none focus:border-amber-500 font-mono"></textarea>
+              <!-- AIM CHEST LITE OFFSETS -->
+              <div>
+                <label class="block text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
+                  AIM CHEST LITE OFFSETS
+                </label>
+                <textarea id="setting-aim-chest-lite-offsets" rows="3" placeholder="ENTER HERE AIM CHEST LITE OFFSETS" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-cyan-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 font-mono"></textarea>
               </div>
 
-              <!-- Color Chams Rules -->
+              <!-- AIM CHEST BRUTAL OFFSETS -->
               <div>
-                <label class="block text-xs font-semibold text-pink-400 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-purple-400 uppercase tracking-wider mb-2">
+                  AIM CHEST BRUTAL OFFSETS
+                </label>
+                <textarea id="setting-aim-chest-brutal-offsets" rows="3" placeholder="ENTER HERE AIM CHEST BRUTAL OFFSETS" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-purple-200 placeholder-slate-600 focus:outline-none focus:border-purple-500 font-mono"></textarea>
+              </div>
+
+              <!-- AIMBOT BODY OFFSETS -->
+              <div>
+                <label class="block text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
+                  AIMBOT BODY OFFSETS
+                </label>
+                <textarea id="setting-aimbot-body-offsets" rows="3" placeholder="ENTER HERE BODY OFFSET" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-emerald-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-mono"></textarea>
+              </div>
+
+              <!-- COLOR CHAMS RULES -->
+              <div>
+                <label class="block text-xs font-bold text-pink-400 uppercase tracking-wider mb-2">
                   COLOR CHAMS RULES
                 </label>
-                <textarea id="setting-chams-pink-rules" rows="3" placeholder="Enter Color Chams Rules Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-pink-200 placeholder-slate-600 focus:outline-none focus:border-pink-500 font-mono"></textarea>
+                <textarea id="setting-chams-pink-rules" rows="3" placeholder="ENTER HERE COLOR CHAMS RULES" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-pink-200 placeholder-slate-600 focus:outline-none focus:border-pink-500 font-mono"></textarea>
               </div>
 
-              <!-- 3D Chams Rules -->
+              <!-- 3D CHAMS RULES -->
               <div>
-                <label class="block text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">
                   3D CHAMS RULES
                 </label>
-                <textarea id="setting-chams-3d-rules" rows="3" placeholder="Enter 3D Chams Rules Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-indigo-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 font-mono"></textarea>
-              </div>
-
-              <!-- Aimbot Hips Offsets JSON -->
-              <div>
-                <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">
-                  AIMBOT HIPS OFFSETS
-                </label>
-                <textarea id="setting-body-offsets" rows="3" placeholder="Enter Aimbot Hips Offsets Here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-emerald-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-mono"></textarea>
+                <textarea id="setting-chams-3d-rules" rows="3" placeholder="ENTER HERE 3D CHAMS RULES" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-indigo-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 font-mono"></textarea>
               </div>
             </div>
 
@@ -953,6 +973,24 @@
       }
     }
 
+    function setAllSwitches(enableState) {
+      const val = enableState ? 'true' : 'false';
+      const switchIds = [
+        'setting-enable-floating',
+        'setting-enable-aim-chest-lite',
+        'setting-enable-aim-chest-brutal',
+        'setting-enable-aimbot-body',
+        'setting-enable-chams',
+        'setting-enable-chams-pink',
+        'setting-enable-chams-3d'
+      ];
+      switchIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+      showToast(enableState ? 'All switches set to ENABLED (Click Save to apply)' : 'All switches set to DISABLED (Click Save to apply)', enableState ? 'info' : 'error');
+    }
+
     function formatNeckOffsetsJson() {
       const elem = document.getElementById('setting-neck-offsets');
       if (!elem || !elem.value.trim()) return;
@@ -1008,22 +1046,56 @@
         if (document.getElementById('setting-free-key-cooldown') && s.freeKeyCooldownHours !== undefined) document.getElementById('setting-free-key-cooldown').value = s.freeKeyCooldownHours;
 
         if (document.getElementById('setting-enable-floating') && s.enableFloating !== undefined) document.getElementById('setting-enable-floating').value = s.enableFloating ? 'true' : 'false';
-        if (document.getElementById('setting-enable-neck') && s.enableNeck !== undefined) document.getElementById('setting-enable-neck').value = s.enableNeck ? 'true' : 'false';
-        if (document.getElementById('setting-enable-body') && s.enableBody !== undefined) document.getElementById('setting-enable-body').value = s.enableBody ? 'true' : 'false';
+        
+        const isChestLite = s.enableAimChestLite !== undefined ? s.enableAimChestLite : (s.enableNeck !== undefined ? s.enableNeck : true);
+        if (document.getElementById('setting-enable-aim-chest-lite')) document.getElementById('setting-enable-aim-chest-lite').value = isChestLite ? 'true' : 'false';
+
+        const isChestBrutal = s.enableAimChestBrutal !== undefined ? s.enableAimChestBrutal : true;
+        if (document.getElementById('setting-enable-aim-chest-brutal')) document.getElementById('setting-enable-aim-chest-brutal').value = isChestBrutal ? 'true' : 'false';
+
+        const isBody = s.enableAimbotBody !== undefined ? s.enableAimbotBody : (s.enableBody !== undefined ? s.enableBody : true);
+        if (document.getElementById('setting-enable-aimbot-body')) document.getElementById('setting-enable-aimbot-body').value = isBody ? 'true' : 'false';
+
         if (document.getElementById('setting-enable-chams') && s.enableChams !== undefined) document.getElementById('setting-enable-chams').value = s.enableChams ? 'true' : 'false';
         if (document.getElementById('setting-enable-chams-pink') && s.enableChamsPink !== undefined) document.getElementById('setting-enable-chams-pink').value = s.enableChamsPink ? 'true' : 'false';
         if (document.getElementById('setting-enable-chams-3d') && s.enableChams3d !== undefined) document.getElementById('setting-enable-chams-3d').value = s.enableChams3d ? 'true' : 'false';
 
-        if (document.getElementById('setting-neck-offsets')) {
-          let val = s.neckOffsets || '';
+        // 1. AIM CHEST LITE OFFSETS
+        if (document.getElementById('setting-aim-chest-lite-offsets')) {
+          let val = s.aimChestLiteOffsets || s.neckOffsets || '';
           if (val) {
             try {
               const parsed = typeof val === 'string' ? JSON.parse(val) : val;
               val = JSON.stringify(parsed, null, 2);
             } catch(e) {}
           }
-          document.getElementById('setting-neck-offsets').value = val;
+          document.getElementById('setting-aim-chest-lite-offsets').value = val;
         }
+
+        // 2. AIM CHEST BRUTAL OFFSETS
+        if (document.getElementById('setting-aim-chest-brutal-offsets')) {
+          let val = s.aimChestBrutalOffsets || '';
+          if (val) {
+            try {
+              const parsed = typeof val === 'string' ? JSON.parse(val) : val;
+              val = JSON.stringify(parsed, null, 2);
+            } catch(e) {}
+          }
+          document.getElementById('setting-aim-chest-brutal-offsets').value = val;
+        }
+
+        // 3. AIMBOT BODY OFFSETS
+        if (document.getElementById('setting-aimbot-body-offsets')) {
+          let val = s.aimbotBodyOffsets || s.bodyOffsets || '';
+          if (val) {
+            try {
+              const parsed = typeof val === 'string' ? JSON.parse(val) : val;
+              val = JSON.stringify(parsed, null, 2);
+            } catch(e) {}
+          }
+          document.getElementById('setting-aimbot-body-offsets').value = val;
+        }
+
         if (document.getElementById('setting-chams-pink-rules')) {
           let val = s.chamsPinkRules || '';
           if (!val && s.chamsPinkSearch && s.chamsPinkReplace) {
@@ -1034,10 +1106,14 @@
           document.getElementById('setting-chams-pink-rules').value = val;
         }
         if (document.getElementById('setting-chams-3d-rules')) {
-          document.getElementById('setting-chams-3d-rules').value = s.chams3dRules || '';
-        }
-        if (document.getElementById('setting-body-offsets')) {
-          document.getElementById('setting-body-offsets').value = s.bodyOffsets || '';
+          let val = s.chams3dRules || '';
+          if (val) {
+            try {
+              const parsed = typeof val === 'string' ? JSON.parse(val) : val;
+              val = JSON.stringify(parsed, null, 2);
+            } catch(e) {}
+          }
+          document.getElementById('setting-chams-3d-rules').value = val;
         }
       }
     }
@@ -1913,16 +1989,18 @@
       const freeKeyCooldown = document.getElementById('setting-free-key-cooldown') ? parseInt(document.getElementById('setting-free-key-cooldown').value) || 24 : 24;
 
       const enableFloating = document.getElementById('setting-enable-floating') ? document.getElementById('setting-enable-floating').value === 'true' : true;
-      const enableNeck = document.getElementById('setting-enable-neck') ? document.getElementById('setting-enable-neck').value === 'true' : true;
-      const enableBody = document.getElementById('setting-enable-body') ? document.getElementById('setting-enable-body').value === 'true' : true;
+      const enableAimChestLite = document.getElementById('setting-enable-aim-chest-lite') ? document.getElementById('setting-enable-aim-chest-lite').value === 'true' : true;
+      const enableAimChestBrutal = document.getElementById('setting-enable-aim-chest-brutal') ? document.getElementById('setting-enable-aim-chest-brutal').value === 'true' : true;
+      const enableAimbotBody = document.getElementById('setting-enable-aimbot-body') ? document.getElementById('setting-enable-aimbot-body').value === 'true' : true;
       const enableChams = document.getElementById('setting-enable-chams') ? document.getElementById('setting-enable-chams').value === 'true' : true;
       const enableChamsPink = document.getElementById('setting-enable-chams-pink') ? document.getElementById('setting-enable-chams-pink').value === 'true' : true;
       const enableChams3d = document.getElementById('setting-enable-chams-3d') ? document.getElementById('setting-enable-chams-3d').value === 'true' : true;
 
-      const neckOffsets = document.getElementById('setting-neck-offsets') ? document.getElementById('setting-neck-offsets').value.trim() : '';
+      const aimChestLiteOffsets = document.getElementById('setting-aim-chest-lite-offsets') ? document.getElementById('setting-aim-chest-lite-offsets').value.trim() : '';
+      const aimChestBrutalOffsets = document.getElementById('setting-aim-chest-brutal-offsets') ? document.getElementById('setting-aim-chest-brutal-offsets').value.trim() : '';
+      const aimbotBodyOffsets = document.getElementById('setting-aimbot-body-offsets') ? document.getElementById('setting-aimbot-body-offsets').value.trim() : '';
       const chamsPinkRules = document.getElementById('setting-chams-pink-rules') ? document.getElementById('setting-chams-pink-rules').value.trim() : '';
       const chams3dRules = document.getElementById('setting-chams-3d-rules') ? document.getElementById('setting-chams-3d-rules').value.trim() : '';
-      const bodyOffsets = document.getElementById('setting-body-offsets') ? document.getElementById('setting-body-offsets').value.trim() : '';
 
       const btn = document.getElementById('btn-save-settings');
 
@@ -1946,15 +2024,21 @@
               freeKeyCooldownHours: freeKeyCooldown,
               outdatedMsg: outdatedMsg,
               enableFloating: enableFloating,
-              enableNeck: enableNeck,
-              enableBody: enableBody,
+              enableNeck: enableAimChestLite,
+              enableBody: enableAimbotBody,
+              enableAimChestLite: enableAimChestLite,
+              enableAimChestBrutal: enableAimChestBrutal,
+              enableAimbotBody: enableAimbotBody,
               enableChams: enableChams,
               enableChamsPink: enableChamsPink,
               enableChams3d: enableChams3d,
-              neckOffsets: neckOffsets,
+              neckOffsets: aimChestLiteOffsets,
+              bodyOffsets: aimbotBodyOffsets,
+              aimChestLiteOffsets: aimChestLiteOffsets,
+              aimChestBrutalOffsets: aimChestBrutalOffsets,
+              aimbotBodyOffsets: aimbotBodyOffsets,
               chamsPinkRules: chamsPinkRules,
-              chams3dRules: chams3dRules,
-              bodyOffsets: bodyOffsets
+              chams3dRules: chams3dRules
             }
           })
         });
